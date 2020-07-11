@@ -13,6 +13,7 @@ var mongodb = require('./model/mongo');
 
 //routes
 var authRouter = require('./routes/auth');
+var projectRouter = require('./routes/project');
 
 //constants
 //const PORT = 3443;
@@ -61,26 +62,8 @@ app.get('/', (req, res) => res.send('Cerbanimo - Coming Soon'));
 app.use('/auth', authRouter);
 
 //project
-app.get('/project', (req, res) => {
-  res.send('Path: /project');
-});
-
-app.get('/project/getstatus', (req, res) => {
-  res.send('Path: /project/getstatus');
-});
-
-app.get('/project/getprojects', (req, res) => {
-  res.send('Path: /project/getprojects');
-});
-
-app.get('/project/getnodes', (req, res) => {
-  res.send('Path: /project/getnodes');
-});
-
-app.get('/project/gettasks', (req, res) => {
-  res.send('Path: /project/gettasks');
-});
-
+app.use('/project', projectRouter);
+  
 //add
 app.get('/add', (req, res) => {
   res.send('Path: /add');
