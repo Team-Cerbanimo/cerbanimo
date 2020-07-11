@@ -14,6 +14,7 @@ var mongodb = require('./model/mongo');
 //routes
 var authRouter = require('./routes/auth');
 var projectRouter = require('./routes/project');
+var addRouter = require('./routes/add');
 
 //constants
 //const PORT = 3443;
@@ -65,21 +66,7 @@ app.use('/auth', authRouter);
 app.use('/project', projectRouter);
   
 //add
-app.get('/add', (req, res) => {
-  res.send('Path: /add');
-});
-
-app.get('/add/project', (req, res) => {
-  res.send('Path: /add/project');
-});
-
-app.get('/add/node', (req, res) => {
-  res.send('Path: /add/node');
-});
-
-app.get('/add/task', (req, res) => {
-  res.send('Path: /add/task');
-});
+app.use('/add', addRouter);
 
 //remove
 app.get('/remove', (req, res) => {
