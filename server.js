@@ -16,6 +16,7 @@ var authRouter = require('./routes/auth');
 var projectRouter = require('./routes/project');
 var addRouter = require('./routes/add');
 var removeRouter = require('./routes/remove');
+var userRouter = require('./routes/user');
 
 //constants
 //const PORT = 3443;
@@ -73,9 +74,7 @@ app.use('/add', addRouter);
 app.use('/remove', removeRouter);
 
 //user
-app.get('/user', (req, res) => {
-  res.send('Path: /user');
-});
+app.use('/user', userRouter);
 
 
 //catch bad requests
