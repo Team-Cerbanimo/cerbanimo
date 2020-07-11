@@ -11,6 +11,9 @@ var path = require('path');
 //internal modules
 var mongodb = require('./model/mongo');
 
+//routes
+var authRouter = require('./routes/auth');
+
 //constants
 //const PORT = 3443;
 const PORT = 3080;
@@ -55,60 +58,7 @@ app.use(function (req, res, next) {
 app.get('/', (req, res) => res.send('Cerbanimo - Coming Soon'));
 
 //auth
-app.get('/auth', (req, res) => {
-  res.send('Path: /auth');
-});
-
-app.post('/auth/login', (req, res) => {
-  var authStatus = false;
-
-  //authenticate user with DB
-  mongodb.authenticateUser(
-    {
-      username: req.body.username || req.body.email,
-      password: req.body.password
-    },
-    (result) => {
-      authStatus = result;
-      
-      req.body.password = null;
-
-      var jsonResponse = {
-        'request': req.body,
-        'success': authStatus,
-        'token': '?'+req.body.username
-      };
-    
-      res.json(jsonResponse);
-    }
-  );
-});
-
-app.post('/auth/register', (req, res) => {
-  var regStatus = false;
-
-  //register user in DB
-  mongodb.registerUser(
-    {
-      username: req.body.username || null,
-      email: req.body.email,
-      password: req.body.password
-    },
-    (result) => {
-      regStatus = (result.insertedCount == 1);
-      console.log(result.insertedId || "Insert operation failed");
-
-      req.body.password = null;
-    
-      var jsonResponse = {
-        'request': req.body,
-        'success': regStatus
-      };
-    
-      res.json(jsonResponse);
-    }
-  );
-});
+app.use('/auth', authRouter);
 
 //project
 app.get('/project', (req, res) => {
