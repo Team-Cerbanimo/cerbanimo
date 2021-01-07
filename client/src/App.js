@@ -1,6 +1,8 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+
+// Requiring our custom middleware for checking if a user is logged in
+// var isAuthenticated = require("../../config/middleware/isAuthenticated");
 
 function App() {
   return (
