@@ -1,0 +1,9 @@
+.paragraph{
+    /*width:
+    justify-content:center;*/
+    text-align: left;
+    font-size:24px;
+}
+.paragraph header{
+   font-weight: bolder;
+}
