@@ -1,0 +1,13 @@
+.links{
+    margin-right: 200px !important;
+    margin-left: auto;
+}
+#brand{
+    margin-left:200px;
+}
+.active:hover{
+    color:rgb(156, 94, 214);
+}
+#outsideNav{
+    height:80px;
+}

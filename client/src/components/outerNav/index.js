@@ -1,13 +1,14 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import './outerNav.css'
 
 
 export default function OuterNav() {
   return (
     <Navbar id="outsideNav" >
-      <Navbar.Brand>Cerbanimo</Navbar.Brand>
-      <Nav className="mr-auto">
+      <Navbar.Brand id="brand">Cerbanimo</Navbar.Brand>
+      <Nav className="links">
         <Link to="/home"
           className={
             window.location.pathname === "/" || window.location.pathname === "/home"
@@ -31,7 +32,7 @@ export default function OuterNav() {
               : "nav-link"
           }
         >Register</Link>
-        
+
         <NavDropdown title="Platform" id="basic-nav-dropdown">
           <Link to="/whatFor"
             className={
