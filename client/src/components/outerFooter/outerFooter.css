@@ -1,0 +1,16 @@
+#outsideFooter{
+    height:360px;
+    background-color: rgb(41, 18, 63);
+    color:white;
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:0;
+    padding-left:100px;
+    padding-right:100px;
+    padding-top: 80px;
+}
+#footerTable{
+    background-color: transparent;
+    color:white;
+}

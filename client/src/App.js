@@ -7,6 +7,7 @@ import Team from './pages/team';
 import WhatDo from './pages/whatDo';
 import WhatFor from './pages/whatFor';
 import OuterNav from './components/outerNav';
+import OuterFooter from './components/outerFooter';
 
 // Requiring our custom middleware for checking if a user is logged in
 // var isAuthenticated = require("../../config/middleware/isAuthenticated");
@@ -24,6 +25,7 @@ function App() {
         <Route path="/team" component={Team} />
         <Route path="/whatFor" component={WhatFor} />
         <Route path="/whatDo" component={WhatDo} />
+        <OuterFooter/>
       </div>
     </HashRouter>
   );
