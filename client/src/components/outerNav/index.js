@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import './outerNav.css'
+import './outerNav.css';
 
 
 export default function OuterNav() {

@@ -1,14 +1,15 @@
 import React from 'react';
-import { Row, Col, Table } from 'react-bootstrap'
-import './outerFooter.css'
+import { Row, Col, Table } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import './outerFooter.css';
 
-export default function OuterFooter(props) {
+export default function OuterFooter() {
     return (
         <div id="outsideFooter">
             <Row>
                 <Col lg={4}>Cerbanimo <br></br> <p>Copyright © 2020 Cerbanimo, LLC.</p></Col>
                 <Col>
-                    <Table borderless id="footerTable">
+                    <Table borderless  id="footerTable">
                         <thead>
                             <tr>
                                 <th>Platform</th>
@@ -19,14 +20,14 @@ export default function OuterFooter(props) {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>What's if For</td>
-                                <td>Our Vision</td>
+                                <td><Link to="/whatFor">What's It For?</Link></td>
+                                <td><Link to="/vision">Our Vision</Link></td>
                                 <td>FAQ</td>
                                 <td>Smart Contracts</td>
                             </tr>
                             <tr>
-                                <td>What it Does</td>
-                                <td>Our Team</td>
+                                <td><Link to="/whatDo">What it Does</Link></td>
+                                <td><Link to="/team">Our Team</Link></td>
                                 <td>Contact</td>
                                 <td>Privacy Policy</td>
                             </tr>
