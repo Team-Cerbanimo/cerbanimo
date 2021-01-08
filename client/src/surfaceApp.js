@@ -8,6 +8,7 @@ import WhatDo from './pages/surfacePages/whatDo';
 import WhatFor from './pages/surfacePages/whatFor';
 import OuterNav from './components/outerNav';
 import OuterFooter from './components/outerFooter';
+import './surfaceApp.css'
 
 
 

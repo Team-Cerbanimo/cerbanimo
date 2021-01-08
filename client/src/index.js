@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 //for now this variable is to represent whether 
 //or not a user is actively logged in 
-let authenticated = true
+let authenticated = false
 if(authenticated === false){
   ReactDOM.render(
     <React.StrictMode>
