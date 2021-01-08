@@ -1,11 +1,11 @@
 import { HashRouter, Route } from 'react-router-dom';
-import Home from './pages/home';
-import Register from './pages/register';
-import Login from './pages/login';
-import Vision from './pages/vision';
-import Team from './pages/team';
-import WhatDo from './pages/whatDo';
-import WhatFor from './pages/whatFor';
+import Home from './pages/surfacePages/home';
+import Register from './pages/surfacePages/register';
+import Login from './pages/surfacePages/login';
+import Vision from './pages/surfacePages/vision';
+import Team from './pages/surfacePages/team';
+import WhatDo from './pages/surfacePages/whatDo';
+import WhatFor from './pages/surfacePages/whatFor';
 import OuterNav from './components/outerNav';
 import OuterFooter from './components/outerFooter';
 
@@ -17,6 +17,7 @@ function App() {
     <HashRouter>
       <div className="App">
         <OuterNav />
+        {/* Surface Pages */}
         <Route exact path="/" component={Home} />
         <Route path="/home" component={Home} />
         <Route path="/register" component={Register} />
