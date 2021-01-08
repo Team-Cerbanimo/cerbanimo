@@ -9,14 +9,14 @@ import WhatFor from './pages/surfacePages/whatFor';
 import OuterNav from './components/outerNav';
 import OuterFooter from './components/outerFooter';
 
-// Requiring our custom middleware for checking if a user is logged in
-// var isAuthenticated = require("../../config/middleware/isAuthenticated");
 
-function App() {
+
+function SurfaceApp() {
   return (
     <HashRouter>
-      <div className="App">
         <OuterNav />
+      <div className="App">
+
         {/* Surface Pages */}
         <Route exact path="/" component={Home} />
         <Route path="/home" component={Home} />
@@ -26,10 +26,11 @@ function App() {
         <Route path="/team" component={Team} />
         <Route path="/whatFor" component={WhatFor} />
         <Route path="/whatDo" component={WhatDo} />
-        <OuterFooter/>
+
       </div>
+        <OuterFooter/>
     </HashRouter>
   );
 }
 
-export default App;
+export default SurfaceApp;
