@@ -40,7 +40,7 @@ export default function OuterNav() {
                 ? "nav-link active"
                 : "nav-link"
             }
-          >What's It For?</Link>
+          >What It's For</Link>
 
           <Link to="/whatDo"
             className={
@@ -48,7 +48,7 @@ export default function OuterNav() {
                 ? "nav-link active"
                 : "nav-link"
             }
-          >What's It Do?</Link>
+          >What It Does?</Link>
         </NavDropdown>
 
         <NavDropdown title="About Us" id="basic-nav-dropdown">

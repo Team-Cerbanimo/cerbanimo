@@ -1,9 +1,0 @@
-.outerButton{
-    color:white;
-    background-color: rgb(83, 36, 127);
-    border-color:rgb(83, 36, 127);
-}
-.outerButton:hover{
-    background-color: rgb(61, 26, 93);
-    border-color:rgb(61, 26, 93);
-}

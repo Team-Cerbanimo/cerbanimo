@@ -1,11 +1,15 @@
 import React from 'react';
+import './paragraph.css'
 
 export default function paragraph(props){
+    console.log(props)
     return(
+  
         <div className="paragraph">
-           <header>{props.title}</header>
+           <header class="boldWords">{props.title}</header>
            <br></br>
-           <p>{props.paragrpah}</p>
+           <p>{props.paragraph}</p>
         </div>
+      
     )
 }
