@@ -6,7 +6,7 @@ export default function Description(props) {
     return (
         <Row>
             <Col></Col>
-            <Col lg={8}>
+            <Col lg={9}>
                 <Paragraph
                     title={props.title}
                     paragraph={props.paragraph} />

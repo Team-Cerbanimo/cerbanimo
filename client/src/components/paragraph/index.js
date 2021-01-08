@@ -2,7 +2,6 @@ import React from 'react';
 import './paragraph.css'
 
 export default function paragraph(props){
-    console.log(props)
     return(
   
         <div className="paragraph">
