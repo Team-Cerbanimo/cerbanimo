@@ -1,7 +1,8 @@
 import React from 'react';
 import teamMembers from './teamMembers.json';
 import TeamMember from '../../../components/teamMemeber';
-import './team.css'
+import './team.css';
+import {Col} from 'react-bootstrap';
 
 export default function Team(){
     let teamMates = teamMembers.map(member => {
