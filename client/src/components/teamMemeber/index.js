@@ -10,7 +10,8 @@ export default function TeamMember(props){
     return(
         <div class="teamMember" id={props.id}>
             <img className="headshots" src={props.img}></img>
-           <header className="names">{props.name}</header>
+            <br></br>
+           <h2 className="names">{props.name}</h2>
            <br></br>
            {/* <h4>Works in:</h4>
            <ul className="skillList">

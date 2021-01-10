@@ -1,11 +1,11 @@
 import React from 'react';
-import { Row, Col, Table } from 'react-bootstrap';
+import { Navbar, Row, Col, Table } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import './outerFooter.css';
 
 export default function OuterFooter() {
     return (
-        <div id="outsideFooter">
+        <Navbar sticky="bottom" id="outsideFooter">
             <Row>
                 <Col lg={4}>Cerbanimo <br></br> <p>Copyright © 2020 Cerbanimo, LLC.</p></Col>
                 <Col>
@@ -41,6 +41,6 @@ export default function OuterFooter() {
                     </Table>
                 </Col>
             </Row>
-        </div>
+        </Navbar>
     )
 }

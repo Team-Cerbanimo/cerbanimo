@@ -6,7 +6,7 @@ import './outerNav.css';
 
 export default function OuterNav() {
   return (
-    <Navbar id="outsideNav" >
+    <Navbar id="outsideNav" collapseOnSelect expand="lg" >
       <Navbar.Brand id="brand">Cerbanimo</Navbar.Brand>
       <Nav className="links">
         <Link to="/home"

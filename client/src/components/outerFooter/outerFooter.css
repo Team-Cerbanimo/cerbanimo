@@ -1,9 +1,7 @@
 #outsideFooter{
-    height:360px;
+    height:350px;
     background-color: rgb(41, 18, 63);
     color:white;
-    position:absolute;
-    bottom:0;
     display:block;  
     width:100%;
     padding-left:100px;

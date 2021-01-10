@@ -1,6 +1,7 @@
 import React from 'react';
 import teamMembers from './teamMembers.json';
-import TeamMember from '../../../components/teamMemeber'
+import TeamMember from '../../../components/teamMemeber';
+import './team.css'
 
 export default function Team(){
     let teamMates = teamMembers.map(member => {
@@ -14,7 +15,7 @@ export default function Team(){
                 />
      })
     return(
-        <div>
+        <div id="team">
            {teamMates} 
         </div>
     )
