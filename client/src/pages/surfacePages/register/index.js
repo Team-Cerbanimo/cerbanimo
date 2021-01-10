@@ -7,7 +7,7 @@ export default function Register() {
     <Container>
       <Row>
         <Col></Col>
-        <Col sm={12}>
+        <Col sm={12} lg={6}>
           <Form>
 
             <Form.Group controlId="formBasicPassword">
@@ -16,8 +16,8 @@ export default function Register() {
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control type="email" placeholder="Email" />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">

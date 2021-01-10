@@ -7,11 +7,11 @@ export default function Login() {
         <Container>
             <Row>
                 <Col ></Col>
-                <Col sm={12}>
+                <Col sm={12} lg={6}>
                     <Form>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                            <Form.Label>Username or Email Address</Form.Label>
+                            <Form.Control type="email" placeholder="Username or Email Address" />
                         </Form.Group>
 
                         <Form.Group controlId="formBasicPassword">
