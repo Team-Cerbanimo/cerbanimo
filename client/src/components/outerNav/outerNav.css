@@ -8,3 +8,8 @@
 #outsideNav{
     height:80px;
 }
+.nav-link:hover{
+    text-decoration: underline !important;  
+    color: rgb(139, 84, 187)!important;
+    
+}

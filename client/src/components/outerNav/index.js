@@ -33,7 +33,7 @@ export default function OuterNav() {
           }
         >Register</Link>
 
-        <NavDropdown title="Platform" id="basic-nav-dropdown">
+        <NavDropdown title="Platform" id="basic-nav-dropdown" className="active">
           <Link to="/whatFor"
             className={
               window.location.pathname === "/" || window.location.pathname === "/home"
@@ -51,7 +51,7 @@ export default function OuterNav() {
           >What It Does?</Link>
         </NavDropdown>
 
-        <NavDropdown title="About Us" id="basic-nav-dropdown">
+        <NavDropdown title="About Us" id="basic-nav-dropdown" className=" active">
           <Link to="/vision"
             className={
               window.location.pathname === "/" || window.location.pathname === "/home"
