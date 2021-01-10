@@ -8,67 +8,70 @@ export default function OuterNav() {
   return (
     <Navbar id="outsideNav" collapseOnSelect expand="lg" >
       <Navbar.Brand id="brand">Cerbanimo</Navbar.Brand>
-      <Nav className="links">
-        <Link to="/home"
-          className={
-            window.location.pathname === "/" || window.location.pathname === "/home"
-              ? "nav-link active"
-              : "nav-link"
-          }
-        >Home</Link>
-
-        <Link to="/login"
-          className={
-            window.location.pathname === "/" || window.location.pathname === "/login"
-              ? "nav-link active"
-              : "nav-link"
-          }
-        >Login</Link>
-
-        <Link to="/register"
-          className={
-            window.location.pathname === "/" || window.location.pathname === "/register"
-              ? "nav-link active"
-              : "nav-link"
-          }
-        >Register</Link>
-
-        <NavDropdown title="Platform" id="basic-nav-dropdown" className="active">
-          <Link to="/whatFor"
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="links">
+          <Link to="/home"
             className={
               window.location.pathname === "/" || window.location.pathname === "/home"
                 ? "nav-link active"
                 : "nav-link"
             }
-          >What It's For</Link>
+          >Home</Link>
 
-          <Link to="/whatDo"
+          <Link to="/login"
             className={
-              window.location.pathname === "/" || window.location.pathname === "/home"
+              window.location.pathname === "/" || window.location.pathname === "/login"
                 ? "nav-link active"
                 : "nav-link"
             }
-          >What It Does?</Link>
-        </NavDropdown>
+          >Login</Link>
 
-        <NavDropdown title="About Us" id="basic-nav-dropdown" className=" active">
-          <Link to="/vision"
+          <Link to="/register"
             className={
-              window.location.pathname === "/" || window.location.pathname === "/home"
+              window.location.pathname === "/" || window.location.pathname === "/register"
                 ? "nav-link active"
                 : "nav-link"
             }
-          >Our Vision</Link>
+          >Register</Link>
 
-          <Link to="/team"
-            className={
-              window.location.pathname === "/" || window.location.pathname === "/home"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >Our Team</Link>
-        </NavDropdown>
-      </Nav>
+          <NavDropdown title="Platform" id="basic-nav-dropdown" className="active">
+            <Link to="/whatFor"
+              className={
+                window.location.pathname === "/" || window.location.pathname === "/home"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >What It's For</Link>
+
+            <Link to="/whatDo"
+              className={
+                window.location.pathname === "/" || window.location.pathname === "/home"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >What It Does?</Link>
+          </NavDropdown>
+
+          <NavDropdown title="About Us" id="basic-nav-dropdown" className=" active">
+            <Link to="/vision"
+              className={
+                window.location.pathname === "/" || window.location.pathname === "/home"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >Our Vision</Link>
+
+            <Link to="/team"
+              className={
+                window.location.pathname === "/" || window.location.pathname === "/home"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >Our Team</Link>
+          </NavDropdown>
+        </Nav>
+        </Navbar.Collapse>
     </Navbar>
   )
 }

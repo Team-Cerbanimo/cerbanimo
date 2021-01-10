@@ -9,7 +9,8 @@ export default function OuterFooter() {
             <Row>
                 <Col lg={4}>Cerbanimo <br></br> <p>Copyright © 2020 Cerbanimo, LLC.</p></Col>
                 <Col>
-                    <Table borderless  id="footerTable">
+                {/* will need to convert this table into Cols for mobile responsiveness */}
+                    <Table borderless  responsive="lg" id="footerTable">
                         <thead>
                             <tr>
                                 <th>Platform</th>

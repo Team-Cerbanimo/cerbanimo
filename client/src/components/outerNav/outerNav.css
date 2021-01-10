@@ -10,6 +10,16 @@
 }
 .nav-link:hover{
     text-decoration: underline !important;  
-    color: rgb(139, 84, 187)!important;
-    
+    color: rgb(139, 84, 187)!important;  
 }
+/* mobile styles 
+requires media query*/
+/* .navbar-collapse{
+    z-index:150 !important;
+    background-color: white;
+}
+.navbar-collapse .nav-link:hover{
+    background-color: rgb(41, 18, 63);
+    color:white !important;
+    text-decoration: none !important;
+} */

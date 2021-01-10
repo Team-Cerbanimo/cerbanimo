@@ -1,13 +1,13 @@
 import React from 'react';
-import { Form, Button, Col, Row } from 'react-bootstrap';
+import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import './login.css';
 
 export default function Login() {
     return (
-        <div>
+        <Container>
             <Row>
-                <Col></Col>
-                <Col>
+                <Col ></Col>
+                <Col sm={12}>
                     <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
@@ -24,8 +24,8 @@ export default function Login() {
                         </Button>
                     </Form>
                 </Col>
-                <Col ></Col>
+                <Col  ></Col>
             </Row>
-        </div>
+        </Container>
     )
 }
