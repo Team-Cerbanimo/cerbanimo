@@ -7,11 +7,18 @@
     padding-left:100px;
     padding-right:100px;
     padding-top: 80px;
+    font-size: 17px;
 }
-#footerTable{
-    background-color: transparent;
+#tableFooter a{
     color:white;
+    text-decoration: none;
 }
-#footerTable a{
-    color:white;
+.footerTitle{
+    font-size: 25px;
+    padding-bottom:10px;
 }
+#tableFooter a:hover{
+    border-bottom: 2px solid white;
+    padding-bottom: 8px;
+}
+

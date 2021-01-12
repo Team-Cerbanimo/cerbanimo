@@ -1,16 +1,42 @@
 .links{
-    margin-right: 200px !important;
+    margin-right: 90px !important;
     margin-left: auto;
-}
-#brand{
-    margin-left:200px;
 }
 #outsideNav{
     height:80px;
+    padding:10px;
+    font-size:18px;
 }
-.nav-link:hover{
-    text-decoration: underline !important;  
-    color: rgb(139, 84, 187)!important;  
+.nav-link{
+    margin:15px;
+}
+.nav-link:hover{  
+    color: rgb(139, 84, 187)!important; 
+    border-bottom: 2px solid rgb(139, 84, 187);
+    padding-bottom: 3px; 
+}
+.dropdown-toggle::after{
+    margin-left: 1em !important;
+}
+.dropdown-menu.show{
+    padding:0px;
+}
+.drops{
+    margin:unset !important;
+    text-align: center;
+    padding:10px !important;
+}
+.drops:hover{
+    background-color:rgb(41, 18, 63);
+    color:white!important;
+    border-bottom:none;
+}
+#brand{
+    margin-left:110px;
+}
+#brand a:hover{
+    border-bottom:none;
+    padding: .5rem 1rem;
 }
 /* mobile styles 
 requires media query*/
