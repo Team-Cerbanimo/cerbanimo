@@ -14,3 +14,8 @@
   background-color: rgb(61, 26, 93) !important;
   border-color:rgb(61, 26, 93) !important;
 }
+@media screen and (max-width: 1000px){
+  .App{
+    font-size: 24px;
+  }
+}

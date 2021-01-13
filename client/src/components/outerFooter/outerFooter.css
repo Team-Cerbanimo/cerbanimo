@@ -29,11 +29,18 @@
 
 @media screen and (max-width: 1000px){
     #outsideFooter{  
-        height:500px;
+        height:700px;
         display:block;  
         width:100%;
         padding-left:40px;
         padding-right:40px;
         padding-top: 40px;
+        font-size:22px;
+    }
+    .footerTitle{
+        font-size:26px;
+        padding-top:30px;
+        padding-bottom:3px;
+        margin-bottom:unset;
     }
 }

@@ -56,5 +56,9 @@
     padding:unset;
     height:unset;
     padding-right:10px;
+    font-size:24px;
+}
+.drops{
+    font-size:24px;
 }
 }
