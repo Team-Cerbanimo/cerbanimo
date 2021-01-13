@@ -9,7 +9,12 @@
     margin-top:100px;
 }
 #laptopImg{
-    max-width: 800px;
+    max-width: 600px;
 }
-/* mobile mode */
-/* requires media query */
+@media screen and (max-width: 1000px){
+    #laptopImg{
+        max-width: 300px;
+        padding: 20px;
+    }
+}
+

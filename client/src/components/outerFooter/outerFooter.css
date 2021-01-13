@@ -9,6 +9,7 @@
     padding-top: 80px;
     font-size: 17px;
 }
+
 #tableFooter a{
     color:white;
     text-decoration: none;
@@ -16,9 +17,23 @@
 .footerTitle{
     font-size: 25px;
     padding-bottom:10px;
+    
 }
 #tableFooter a:hover{
     border-bottom: 2px solid white;
     padding-bottom: 8px;
 }
+#footerLogo{
+    padding-bottom:18px;
+}
 
+@media screen and (max-width: 1000px){
+    #outsideFooter{  
+        height:500px;
+        display:block;  
+        width:100%;
+        padding-left:40px;
+        padding-right:40px;
+        padding-top: 40px;
+    }
+}

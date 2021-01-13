@@ -38,9 +38,8 @@
     border-bottom:none;
     padding: .5rem 1rem;
 }
-/* mobile styles 
-requires media query*/
-/* .navbar-collapse{
+@media screen and (max-width: 1000px){
+.navbar-collapse{
     z-index:150 !important;
     background-color: white;
 }
@@ -48,4 +47,14 @@ requires media query*/
     background-color: rgb(41, 18, 63);
     color:white !important;
     text-decoration: none !important;
-} */
+} 
+#brand{
+    margin-left: unset;
+    margin:unset;
+}
+#outsideNav{
+    padding:unset;
+    height:unset;
+    padding-right:10px;
+}
+}
