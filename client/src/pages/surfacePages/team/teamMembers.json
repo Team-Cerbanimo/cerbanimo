@@ -14,5 +14,21 @@
         "skills": ["front-end", "react", "production schedule"],
         "title": "Full-Stack Web Developer",
         "paragraph":"Aliquip ipsum pariatur et ullamco laborum id duis proident dolor qui duis exercitation excepteur. Laborum occaecat eiusmod voluptate adipisicing non ut. Adipisicing fugiat ad quis cupidatat id eu eiusmod nostrud. Ut mollit aliquip in nulla commodo fugiat excepteur et duis consectetur id." 
+    },
+    {
+        "id":3,
+        "name": "Anthony",
+        "img":"https://avatars2.githubusercontent.com/u/64037800?s=400&u=53ec1db932c81fd5b8b01fe87dfa7f3fa53161d4&v=4",
+        "skills": ["front-end", "react", "production schedule"],
+        "title": "Full-Stack Web Developer",
+        "paragraph":"Aliquip ipsum pariatur et ullamco laborum id duis proident dolor qui duis exercitation excepteur. Laborum occaecat eiusmod voluptate adipisicing non ut. Adipisicing fugiat ad quis cupidatat id eu eiusmod nostrud. Ut mollit aliquip in nulla commodo fugiat excepteur et duis consectetur id." 
+    },
+    {
+        "id":4,
+        "name": "Anthony",
+        "img":"https://avatars2.githubusercontent.com/u/64037800?s=400&u=53ec1db932c81fd5b8b01fe87dfa7f3fa53161d4&v=4",
+        "skills": ["front-end", "react", "production schedule"],
+        "title": "Full-Stack Web Developer",
+        "paragraph":"Aliquip ipsum pariatur et ullamco laborum id duis proident dolor qui duis exercitation excepteur. Laborum occaecat eiusmod voluptate adipisicing non ut. Adipisicing fugiat ad quis cupidatat id eu eiusmod nostrud. Ut mollit aliquip in nulla commodo fugiat excepteur et duis consectetur id." 
     }
 ]
