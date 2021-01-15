@@ -5,7 +5,9 @@ import './outerNav.css';
 
 
 
+
 export default function OuterNav() {
+  
   return (
     <Navbar id="outsideNav" collapseOnSelect expand="lg" >
       <LinkContainer to="/home">
@@ -28,7 +30,7 @@ export default function OuterNav() {
             <Nav.Link>Register</Nav.Link>
           </LinkContainer>
 
-          <NavDropdown title="Platform" className="toggleDrop">
+          <NavDropdown  title="Platform" id="platformDrop" className="toggleDrop">
             <LinkContainer to="/whatFor">
               <Nav.Link className="drops">What It's For</Nav.Link>
             </LinkContainer>
