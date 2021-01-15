@@ -1,0 +1,19 @@
+#outsideFooter{
+    height:360px;
+    background-color: rgb(41, 18, 63);
+    color:white;
+    position:absolute;
+    bottom:0;
+    display:block;  
+    width:100%;
+    padding-left:100px;
+    padding-right:100px;
+    padding-top: 80px;
+}
+#footerTable{
+    background-color: transparent;
+    color:white;
+}
+#footerTable a{
+    color:white;
+}

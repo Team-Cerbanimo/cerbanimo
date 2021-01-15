@@ -1,0 +1,11 @@
+.paragraph{
+    /*width:
+    justify-content:center;*/
+    text-align: left;
+    font-size:22px;
+    margin:40px;
+}
+.boldWords{
+   font-weight: 700;
+   font-size: 28px;
+}

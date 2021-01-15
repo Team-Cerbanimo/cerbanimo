@@ -1,0 +1,12 @@
+.App{
+  margin-bottom:60px;
+}
+.outerButton{
+  color:white !important;
+  background-color: rgb(83, 36, 127) !important;
+  border-color:rgb(83, 36, 127) !important;
+}
+.outerButton:hover{
+  background-color: rgb(61, 26, 93) !important;
+  border-color:rgb(61, 26, 93) !important;
+}
