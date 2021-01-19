@@ -16,7 +16,7 @@ export default function Login() {
 
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password"  val="" placeholder="Password" />
                         </Form.Group>
 
                         <Button className="outerButton" type="submit" size="lg">
