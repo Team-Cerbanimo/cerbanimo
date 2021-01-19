@@ -1,74 +1,56 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 import './outerNav.css';
 
 
+
+
 export default function OuterNav() {
+  
   return (
-    <Navbar id="outsideNav" >
-      <Navbar.Brand id="brand">Cerbanimo</Navbar.Brand>
-      <Nav className="links">
-        <Link to="/home"
-          className={
-            window.location.pathname === "/" || window.location.pathname === "/home"
-              ? "nav-link active"
-              : "nav-link"
-          }
-        >Home</Link>
+    <Navbar id="outsideNav" collapseOnSelect expand="lg" >
+      <LinkContainer to="/home">
+        <Navbar.Brand id="brand">
+          <img src="https://cerbanimo.quinixdesign.com/v2/wp-content/uploads/2020/11/Cerbanimo-Logo-V001-2.png" alt="Cerbanimo Logo"></img>
+        </Navbar.Brand>
+      </LinkContainer>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="links">
+          <LinkContainer to="/home">
+            <Nav.Link>Home</Nav.Link>
+          </LinkContainer>
 
-        <Link to="/login"
-          className={
-            window.location.pathname === "/" || window.location.pathname === "/login"
-              ? "nav-link active"
-              : "nav-link"
-          }
-        >Login</Link>
+          <LinkContainer to="/login">
+            <Nav.Link>Login</Nav.Link>
+          </LinkContainer>
 
-        <Link to="/register"
-          className={
-            window.location.pathname === "/" || window.location.pathname === "/register"
-              ? "nav-link active"
-              : "nav-link"
-          }
-        >Register</Link>
+          <LinkContainer to="/register">
+            <Nav.Link>Register</Nav.Link>
+          </LinkContainer>
 
-        <NavDropdown title="Platform" id="basic-nav-dropdown">
-          <Link to="/whatFor"
-            className={
-              window.location.pathname === "/" || window.location.pathname === "/home"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >What It's For</Link>
+          <NavDropdown  title="Platform" id="platformDrop" className="toggleDrop">
+            <LinkContainer to="/whatFor">
+              <Nav.Link className="drops">What It's For</Nav.Link>
+            </LinkContainer>
 
-          <Link to="/whatDo"
-            className={
-              window.location.pathname === "/" || window.location.pathname === "/home"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >What It Does?</Link>
-        </NavDropdown>
+            <LinkContainer to="/whatDo">
+              <Nav.Link className="drops">What It Does?</Nav.Link>
+            </LinkContainer>
+          </NavDropdown>
 
-        <NavDropdown title="About Us" id="basic-nav-dropdown">
-          <Link to="/vision"
-            className={
-              window.location.pathname === "/" || window.location.pathname === "/home"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >Our Vision</Link>
+          <NavDropdown title="About Us" className="toggleDrop">
+            <LinkContainer to="/vision">
+              <Nav.Link className="drops">Our Vision</Nav.Link>
+            </LinkContainer>
 
-          <Link to="/team"
-            className={
-              window.location.pathname === "/" || window.location.pathname === "/home"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >Our Team</Link>
-        </NavDropdown>
-      </Nav>
+            <LinkContainer to="/team">
+              <Nav.Link className="drops">Our Team</Nav.Link>
+            </LinkContainer>
+          </NavDropdown>
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   )
 }

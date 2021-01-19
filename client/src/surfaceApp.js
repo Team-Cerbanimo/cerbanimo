@@ -25,8 +25,25 @@ let propsObj = {}
         {/* Surface Pages */}
         <Route exact path="/" component={Home} />
         <Route path="/home" component={Home} />
-        <Route path="/register" component={Register} />
-        <Route path="/login" component={Login} />
+        
+        <Route path="/register" render ={ () => { 
+           propsObj = description[4]; 
+           return (
+             <div> 
+               <PageTitle name={propsObj.name}/> 
+               <Register/>
+             </div>) 
+           }} />
+
+        <Route path="/login" render ={ () => { 
+           propsObj = description[3]; 
+           return (
+             <div> 
+               <PageTitle name={propsObj.name}/> 
+               <Login/> 
+             </div>) 
+           }} />
+
         <Route path="/vision" render ={ () => { 
            propsObj = description[0]; 
            return (
@@ -35,7 +52,16 @@ let propsObj = {}
                <Description paragraph={propsObj.paragraph} title={propsObj.title}/> 
              </div>) 
            }}/>
-        <Route path="/team" component={Team} />
+
+        <Route path="/team" render ={ () => { 
+           propsObj = description[5]; 
+           return (
+             <div> 
+               <PageTitle name={propsObj.name}/> 
+               <Team/>
+             </div>) 
+           }}/> 
+
         <Route path="/whatFor" render ={ () => { 
            propsObj = description[1]; 
            return (
@@ -44,6 +70,7 @@ let propsObj = {}
                <Description paragraph={propsObj.paragraph} title={propsObj.title}/> 
              </div>) 
            }}/>
+
         <Route path="/whatDo" render ={ () => { 
           propsObj = description[2]; 
           return (

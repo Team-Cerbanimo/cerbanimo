@@ -1,5 +1,9 @@
 .App{
-  margin-bottom:60px;
+  margin-bottom:120px;
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 .outerButton{
   color:white !important;
@@ -9,4 +13,9 @@
 .outerButton:hover{
   background-color: rgb(61, 26, 93) !important;
   border-color:rgb(61, 26, 93) !important;
+}
+@media screen and (max-width: 1000px){
+  .App{
+    font-size: 24px;
+  }
 }

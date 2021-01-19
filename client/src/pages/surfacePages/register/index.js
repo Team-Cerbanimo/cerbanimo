@@ -1,13 +1,13 @@
 import React from 'react';
-import { Form, Button, Col, Row } from 'react-bootstrap';
+import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import './register.css';
 
 export default function Register() {
   return (
-    <div>
+    <Container>
       <Row>
         <Col></Col>
-        <Col>
+        <Col sm={12} lg={6}>
           <Form>
 
             <Form.Group controlId="formBasicPassword">
@@ -16,8 +16,8 @@ export default function Register() {
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control type="email" placeholder="Email" />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
@@ -32,6 +32,6 @@ export default function Register() {
         </Col>
         <Col ></Col>
       </Row>
-    </div>
+    </Container>
   )
 }

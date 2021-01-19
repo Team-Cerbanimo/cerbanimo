@@ -1,0 +1,24 @@
+#homepage{
+    margin-top:140px;
+    padding-bottom:120px;
+}
+#purpleHome{
+    background-color: rgb(88,52,120);
+    height:240px;
+    width: auto;
+    margin-top:100px;
+}
+#laptopImg{
+    max-width: 600px;
+}
+@media screen and (max-width: 1000px){
+    #laptopImg{
+        max-width: 300px;
+        padding: 20px;
+    }
+    #homepage{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+

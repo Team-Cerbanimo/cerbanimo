@@ -1,3 +1,8 @@
-.teamMember img{
-    border-radius: 400px;
+.headshots{
+    border-radius: 400px !important;
+    margin-bottom: 10px;
 }
+.teamMember{
+    border:none !important;
+}
+
