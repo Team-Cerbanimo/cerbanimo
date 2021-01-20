@@ -4,7 +4,7 @@ import Profile from './pages/innerPages/profile';
 import Home from './pages/innerPages/home';
 import Projects from './pages/innerPages/projects';
 import TaskMarket from './pages/innerPages/taskMarket';
-import InnerNav from './components/innerNav';
+import InnerNav from './components/innerComponents/innerNav';
 import SurfaceApp from './surfaceApp';
 import ReactDOM from 'react-dom';
 
