@@ -75,51 +75,55 @@ const authenticateUser = (userInfo, callback) => {
     });
 };
 
+//get user
+const getUser = (userInfo, callback) => {
+    let user = {
+        username: userInfo.username || userInfo.email
+    };
 
-//test an insertion
-const insertDocuments = function(db, callback) {
-    // Get the collection
-    const collection = db.collection('tyler-test');
+    ensureConnection(function(err) {
+        assert.equal(null, err);
+    
+        const db = client.db(dbName);
 
-    // Insert some documents
-    collection.insertMany([
-      {a : 1}, {a : 2}, {a : 3}
-    ], function(err, result) {
-      assert.equal(err, null);
-      assert.equal(3, result.result.n);
-      assert.equal(3, result.ops.length);
-      console.log("Inserted 3 documents into tyler-test collection");
-      callback(result);
+        const usersCollection = db.collection('users');
+
+        usersCollection.findOne(user, { projection: {password: 0} }, (err, result) => {
+            assert.equal(err, null);
+
+            callback(result);
+        });
     });
-}
+};
 
-//test a removal
-const removeDocument = function(db, callback) {
-    // Get the collection
-    const collection = db.collection('tyler-test');
+//get dashboard
+const getDashboard = (userInfo, callback) => {
+    let userResult = getUser(userInfo.username);
+	
+	let projectQuery = {
+		'users_id': userResult._id,
+		'category': { $in: userResult.categories }
+	};
 
-    // Delete document where a is 3
-    collection.deleteOne({ a : 3 }, function(err, result) {
-      assert.equal(err, null);
-      assert.equal(1, result.result.n);
-      console.log("Removed the document with the field a equal to 3");
-      callback(result);
-    });    
-}
+    ensureConnection(function(err) {
+        assert.equal(null, err);
+    
+        const db = client.db(dbName);
 
-//test a find
-const findDocument = function(db, callback) {
-    // Get the collection
-    const collection = db.collection('tyler-test');
+        const projectsCollection = db.collection('projects');
 
-    // Find document where a is 2
-    collection.findOne({ a : 2 }, function(err, result) {
-    assert.equal(err, null);
-    console.log("Found the document with the field a equal to 2");
-    callback(result);
-    });    
-}
+        projectsCollection.find(projectQuery, (err, result) => { //TODO Decide if it makes more sense to store user ID on Projects or vice versa
+            assert.equal(err, null);
+			
+			returnObj = {
+				'user': userResult,
+				'projects': result
+			};
 
+            callback(result);
+        }).limit(userInfo.maxProjectCount);
+    });
+};
 
 //validate there is a connection and execute the callback function
 const ensureConnection = (callback) => {
@@ -140,44 +144,6 @@ const ensureConnection = (callback) => {
         callback();
     }
 };
-
-
-//call ensure function with callback to run test based on switch-case
-//TESTING ONLY
-/*
-ensureConnection(function(err) {
-    assert.equal(null, err);
-
-    const db = client.db(dbName);
-    
-    const mode = 5; //set mode for switch below
-
-    switch(mode) {
-        case 1:
-            insertDocuments(db, function() {
-                return;
-            });
-            break;
-
-        case 2:
-            removeDocument(db, function() {
-                return;
-            });
-            break;
-
-        case 3:
-            findDocument(db, function(res) {
-                console.log(res);
-                return;
-            });
-            break;
-
-        default:
-            console.log("Not using MongoDB for this session, disconnected");
-            client.close();
-    }
-});
-*/
 
 exports.mongoClient = client;
 exports.registerUser = registerUser;
