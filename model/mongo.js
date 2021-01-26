@@ -29,8 +29,6 @@ const registerUser = (userInfo, callback) => {
         hash: pHash
     };
 
-    //TODO check if user already exists
-
     ensureConnection(function(err) {
         assert.equal(null, err);
     
@@ -39,7 +37,9 @@ const registerUser = (userInfo, callback) => {
         const usersCollection = db.collection('users');
 
         usersCollection.insertOne(userToAdd, (err, result) => {
-            let callbackResult = result;
+            let callbackResult = result; //default response object to be result
+            
+            //check for error and handle
             if(err) {
                 if(err.errmsg.indexOf("E11000") >= 0) {
                     let problemField = "UNKNOWN FIELD";
@@ -58,6 +58,7 @@ const registerUser = (userInfo, callback) => {
                 }
             }
             
+            //return either custom error response or result object
             callback(callbackResult);
         });
     });
