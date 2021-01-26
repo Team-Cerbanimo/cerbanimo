@@ -12,10 +12,12 @@ export default function ProjectCard(props) {
             <Card.Body>
                 <Card.Img src={props.img}/>
                 <Card.Text>{props.description}</Card.Text>
+                {/* TODO add max characters for visible */}
             </Card.Body>
 
             <Card.Footer>
                 <Card.Link>Read More...</Card.Link>
+                {/* TODO make this a toggle for all text visible */}
             </Card.Footer>
         </Card>
     )

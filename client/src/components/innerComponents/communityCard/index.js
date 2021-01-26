@@ -11,7 +11,7 @@ export default function CommunityCard(props) {
                 name={project.name}
                 community={project.community}
                 img={project.img}
-                description={prpject.description}
+                description={project.description}
             />
         </Carousel.Item>
     })
@@ -30,7 +30,9 @@ export default function CommunityCard(props) {
 
             <Card.Footer>
                 <Card.Text>{props.description}</Card.Text>
+                   {/* TODO add max characters for visible */}
                 <Card.Link>Read More...</Card.Link>
+                  {/* TODO make this a toggle for all text visible */}
             </Card.Footer>
         </Card>
     )
