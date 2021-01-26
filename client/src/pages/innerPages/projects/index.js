@@ -5,6 +5,19 @@ import ProjectCard from '../../../components/innerComponents/projectCard'
 export default function Projects(props) {
     //TODO make an API call using props.userID
     //returns all projects that user is working on
+    //for now response is defined here
+    let res = [
+        {
+            name: "project one",
+            community: "community one",
+            description: "description"
+        },
+        {
+            name: "project two",
+            community: "community two",
+            description: "description two"
+        }
+    ]
     let yourProjects = res.map(project => {
         return <Col>
             <ProjectCard
