@@ -14,69 +14,69 @@ router.use((req, res, next) => {
 });
 
 //get
-router.get('/api/get', (req, res) => {
+router.get('/get', (req, res) => {
     res.send('Path: /api/get');
 });
 
-router.get('/api/get/dashboard', (req, res) => {
+router.get('/get/dashboard', (req, res) => {
     res.send('Path: /api/get/dashboard');
 });
 
-router.get('/api/get/user', (req, res) => {
+router.get('/get/user', (req, res) => {
     res.send('Path: /api/get/user');
 });
 
-router.get('/api/get/project', (req, res) => {
+router.get('/get/project', (req, res) => {
     res.send('Path: /api/get/project');
 });
 
-router.get('/api/get/project/status', (req, res) => {
+router.get('/get/project/status', (req, res) => {
     res.send('Path: /api/get/project/status');
 });
 
-router.get('/api/get/project/nodes', (req, res) => {
+router.get('/get/project/nodes', (req, res) => {
     res.send('Path: /api/get/project/nodes');
 });
 
-router.get('/api/get/project/tasks', (req, res) => {
+router.get('/get/project/tasks', (req, res) => {
     res.send('Path: /api/get/project/tasks');
 });
 
 //add
-router.get('/api/add', (req, res) => {
+router.get('/add', (req, res) => {
   res.send('Path: /api/add');
 });
 
-router.get('/api/add/project', (req, res) => {
+router.get('/add/project', (req, res) => {
   res.send('Path: /api/add/project');
 });
 
-router.get('/api/add/node', (req, res) => {
+router.get('/add/node', (req, res) => {
   res.send('Path: /api/add/node');
 });
 
 //remove
-router.send('/api/remove', (req, res) => {
+router.get('/remove', (req, res) => {
   res.send('Path: /api/remove');
 });
 
-router.send('/api/remove/project', (req, res) => {
+router.get('/remove/project', (req, res) => {
   res.send('Path: /api/remove/project');
 });
 
-router.send('/api/remove/node', (req, res) => {
+router.get('/remove/node', (req, res) => {
   res.send('Path: /api/remove/node');
 });
 
-router.send('/api/remove/task', (req, res) => {
+router.get('/remove/task', (req, res) => {
   res.send('Path: /api/remove/task');
 });
 
-router.get('/api/add/task', (req, res) => {
+router.get('/add/task', (req, res) => {
   res.send('Path: /api/add/task');
 });
 
-router.get('/api/get/dashboard', (req, res) => {
+router.get('/get/dashboard', (req, res) => {
 	var requestedProjectCount = req.body.maxProjectCount || 20;	//TODO Confirm JSON value key
 	
     mongodb.getDashboard( //TODO Write in mongo module
@@ -107,7 +107,7 @@ router.get('/api/get/dashboard', (req, res) => {
 });
 
 //auth
-router.post('/api/auth/register', (req, res) => {
+router.post('/auth/register', (req, res) => {
     var regStatus = false;
 
     //register user in DB
@@ -118,22 +118,31 @@ router.post('/api/auth/register', (req, res) => {
         password: req.body.password
         },
         (result) => {
-        regStatus = (result.insertedCount == 1);
-        console.log(result.insertedId || "Insert operation failed");
+            let jsonResponse = {};
 
-        req.body.password = null;
-        
-        var jsonResponse = {
-            'request': req.body,
-            'success': regStatus
-        };
-        
-        res.json(jsonResponse);
+            if(result.error){
+                jsonResponse = {
+                    'success': false,
+                    'errmsg': result.errmsg
+                };
+            } else {
+                regStatus = (result.insertedCount == 1);
+                console.log(result.insertedId || "Insert operation failed");
+
+                req.body.password = null;
+                
+                jsonResponse = {
+                    'request': req.body,
+                    'success': regStatus
+                };
+            }
+            
+            res.json(jsonResponse);
         }
     );
 });
   
-router.post('/api/auth/login', (req, res) => {
+router.post('/auth/login', (req, res) => {
     var authStatus = false;
 
     //authenticate user with DB
