@@ -106,7 +106,7 @@ const getUser = (userInfo, callback) => {
 
         const usersCollection = db.collection('users');
 
-        usersCollection.findOne(user, { projection: {password: 0} }, (err, result) => {
+        usersCollection.findOne(user, { projection: {hash: 0} }, (err, result) => {
             assert.equal(err, null);
 
             callback(result);
@@ -114,32 +114,76 @@ const getUser = (userInfo, callback) => {
     });
 };
 
+//get project
+const getProjectsByCategory = (request, callback) => {
+    let categoryCount = request.categories.length;
+    let projectArray = new Array(categoryCount);
+
+    let getNextCategory = (x, callback) => {
+        if(x < categoryCount) {
+            console.log(x);
+            ensureConnection(function(err) {
+                assert.equal(null, err);
+            
+                const db = client.db(dbName);
+        
+                const projectsCollection = db.collection('projects');
+
+                let projectQuery = {
+                    'category': request.categories[x]
+                };
+                console.log(projectQuery);
+        
+                projectsCollection.find({projectQuery}, {limit: request.maxProjectCount}, (err, result) => {
+                    if(err) {
+                        console.log(err.errmsg);
+                    } else {
+                        console.log(result.toArray());
+                        projectArray[x] = {
+                            category: request.categories[x],
+                            topProjects: result.toArray()
+                        };
+
+                        getNextCategory(x+1, () => {
+                            if(x == 0) {
+                                callback(projectArray);
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    }
+
+    getNextCategory(0);
+};
+
 //get dashboard
 const getDashboard = (userInfo, callback) => {
-    let userResult = getUser(userInfo.username);
-	
-	let projectQuery = {
-		'users_id': userResult._id,
-		'category': { $in: userResult.categories }
-	};
+    getUser(
+        {username: userInfo.username, email: userInfo.email},
+        (userResult) => {
+            console.log(userResult);
 
-    ensureConnection(function(err) {
-        assert.equal(null, err);
-    
-        const db = client.db(dbName);
-
-        const projectsCollection = db.collection('projects');
-
-        projectsCollection.find(projectQuery, (err, result) => { //TODO Decide if it makes more sense to store user ID on Projects or vice versa
-            assert.equal(err, null);
-			
-			returnObj = {
-				'user': userResult,
-				'projects': result
-			};
-
-            callback(result);
-        }).limit(userInfo.maxProjectCount);
+            ensureConnection(function(err) {
+                assert.equal(null, err);
+            
+                const db = client.db(dbName);
+        
+                const projectsCollection = db.collection('projects');
+        
+                getProjectsByCategory(
+                    {categories: userResult.categories,
+                    maxProjectCount: userInfo.maxProjectCount},
+                    (projectResult) => {
+                        let returnObj = {
+                            'user': userResult,
+                            'projects': projectResult,
+                            'success': true
+                        };
+                        callback(returnObj);
+                });
+            });
     });
 };
 
@@ -166,3 +210,4 @@ const ensureConnection = (callback) => {
 exports.mongoClient = client;
 exports.registerUser = registerUser;
 exports.authenticateUser = authenticateUser;
+exports.getDashboard = getDashboard;

@@ -76,34 +76,29 @@ router.get('/add/task', (req, res) => {
   res.send('Path: /api/add/task');
 });
 
-router.get('/get/dashboard', (req, res) => {
-	var requestedProjectCount = req.body.maxProjectCount || 20;	//TODO Confirm JSON value key
+router.post('/get/dashboard', (req, res) => {
+	let requestedProjectCount = req.body.maxProjectCount || 20;	//TODO Confirm JSON value key
 	
-    mongodb.getDashboard( //TODO Write in mongo module
+    mongodb.getDashboard(
         {
         username: req.body.username || req.body.email,
         maxProjectCount: requestedProjectCount
         },
         (result) => {
-        success = result.success;
-		
-		var user = {}; //TODO Define User object
-		var project = {}; //TODO Define Project object/array
+            let success = result.success;
+            let user = result.user;
+            var projects = result.projects;
 
-        var jsonResponse = {
-            'request': req.body,
-            'success': success,
-			'user': user,
-			'project': project
-        };
-        
-        res.json(jsonResponse);
+            var jsonResponse = {
+                'request': req.body,
+                'success': success,
+                'user': user,
+                'projects': projects
+            };
+            
+            res.json(jsonResponse);
         }
     );
-	
-    res.send('Path: /api/get/dashboard');
-	
-	//TODO Return User's Project Categories (and Categories' top x projects)
 });
 
 //auth
