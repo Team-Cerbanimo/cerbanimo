@@ -39,9 +39,26 @@ const registerUser = (userInfo, callback) => {
         const usersCollection = db.collection('users');
 
         usersCollection.insertOne(userToAdd, (err, result) => {
-            assert.equal(err, null);
-            console.log("Created new user successfully");
-            callback(result);
+            let callbackResult = result;
+            if(err) {
+                if(err.errmsg.indexOf("E11000") >= 0) {
+                    let problemField = "UNKNOWN FIELD";
+                    if(err.keyValue.email) {
+                        problemField = "email";
+                    } else if(err.keyValue.username) {
+                        problemField = "username";
+                    }
+
+                    callbackResult = {
+                        error: true,
+                        errmsg: `Oops! That ${problemField} is already in use.`
+                    };
+                } else {
+                    callbackResult = err;
+                }
+            }
+            
+            callback(callbackResult);
         });
     });
 };
