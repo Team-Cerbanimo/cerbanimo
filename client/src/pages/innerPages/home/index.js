@@ -3,8 +3,7 @@ import HomeCategory from '../../../components/innerComponents/homeCategories'
 
 export default function Home(){
     return(
-        <div>
-           
+        <div>       
            <HomeCategory/>
         </div>
     )
