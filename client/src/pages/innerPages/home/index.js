@@ -4,7 +4,8 @@ import HomeCategory from '../../../components/innerComponents/homeCategories'
 export default function Home(){
     return(
         <div>       
-           <HomeCategory/>
+           <HomeCategory
+            items={'Lorem ipsum dolor sit'.split(' ')}/>
         </div>
     )
 }
