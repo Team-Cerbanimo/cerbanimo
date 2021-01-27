@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 
 export default function ProjectCard(props) {
     return (
-        <Card>
+        <Card style={{ width: '24rem' }}>
             <Card.Header>
                 <Card.Title>{props.name}</Card.Title>
                 <Card.Subtitle>Community:{props.community}</Card.Subtitle>

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Col, Button } from 'react-bootstrap'
-import ProjectCard from '../../../components/innerComponents/projectCard'
+import { Col, Button } from 'react-bootstrap';
+import ProjectCard from '../../../components/innerComponents/projectCard';
+import ProfileNav from '../../../components/innerComponents/profileNav';
 
-export default function Projects(props) {
+export default function MyProjects(props) {
     //TODO make an API call using props.userID
     //returns all projects that user is working on
     //for now response is defined here
@@ -33,7 +34,12 @@ export default function Projects(props) {
     })
     return (
         <div>
-            {yourProjects}
+            <ProfileNav/>
+            <Button>Projects I Made</Button>
+            <Button>Projects I am Working On</Button>
+            <div>
+                {yourProjects}
+            </div>
         </div>
     )
 }

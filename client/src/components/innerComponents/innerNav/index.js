@@ -30,10 +30,6 @@ export default function InnerNav() {
             <Nav.Link>Profile</Nav.Link>
           </LinkContainer>
 
-          <LinkContainer to="/projects">
-            <Nav.Link>Projects</Nav.Link>
-          </LinkContainer>
-
           <LinkContainer to="/log-out">
             <Nav.Link>Log Out</Nav.Link>
           </LinkContainer>

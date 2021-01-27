@@ -2,11 +2,13 @@ import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Profile from './pages/innerPages/profile';
 import Home from './pages/innerPages/home';
-import Projects from './pages/innerPages/projects';
+import MyProjects from './pages/innerPages/myProjects';
+import MyCreate from './pages/innerPages/myCreate';
+import MyPersonal from './pages/innerPages/myPersonal';
 import TaskMarket from './pages/innerPages/taskMarket';
 import InnerNav from './components/innerComponents/innerNav';
 import SurfaceApp from './surfaceApp';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
 
 function InnerApp() {
@@ -26,9 +28,19 @@ function InnerApp() {
                         <Profile/>
                     )
                 }} />
-                <Route path="/projects" render={() => {
+                <Route path="/my-projects" render={() => {
                     return (
-                        <Projects/>
+                        <MyProjects/>
+                    )
+                }} />
+                <Route path="/personal" render={() => {
+                    return (
+                        <MyPersonal/>
+                    )
+                }} />
+                <Route path="/create" render={() => {
+                    return (
+                        <MyCreate/>
                     )
                 }} />
                 <Route path="/task-market" render={() => {
