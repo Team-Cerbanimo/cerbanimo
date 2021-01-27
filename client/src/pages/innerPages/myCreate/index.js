@@ -6,6 +6,8 @@ export default function MyCreate() {
     let [type, setType] = useState("");
     let [skills, setSkills] = useState([]);
     let [tags, setTags] = useState([]);
+    //an object for the project or community that is being created
+    //takes user inputs upon change & sumbission 
     let [createObj, setCreateObj] = useState({
         type: type,
         name: "",
@@ -15,8 +17,11 @@ export default function MyCreate() {
         parent: ""
     })
 
+    //variable to determine whether or not a skill or a tag is being added
     let tagVSskill = ""
+    //string value variable to hold that skill or tag
     let inputtagVSskill = ""
+    //hook to listen for down Enter
     useEffect(() => {
         const listener = event => {
             if (event.code === "Enter" || event.code === "NumpadEnter") {
@@ -29,33 +34,23 @@ export default function MyCreate() {
         // };
     }, []);
 
-    function setProject(btnVal) {
-        setType(btnVal)
-        setCreateObj({
-            ...createObj, type: btnVal
-        })
-    }
-
-    function formSubmit() {
-        console.log(createObj);
-        let elementsArray = document.getElementsByClassName("form-control");
-        for (let i = 0; i < elementsArray.length; i++) {
-            elementsArray[i].value = ""
-        }
-    }
-
+    //is called after enter down
     function setArrays(tagVSskill, inputtagVSskill) {
         console.log(tagVSskill, inputtagVSskill)
         if (tagVSskill === "Tag") {
+            //puts that tag into the tag array
             tags.push(inputtagVSskill)
             console.log(tags)
+            //updates the create object with the new array
             setCreateObj({
                 ...createObj, tags: tags
             })
+            //resets variables and input on page
             tagVSskill = ""
             inputtagVSskill = ""
             document.getElementById("tag").value = ""
         }
+        //repeated but for skill instead of tag
         else if (tagVSskill === "Skill") {
             skills.push(inputtagVSskill)
             console.log(skills)
@@ -66,8 +61,25 @@ export default function MyCreate() {
             inputtagVSskill = ""
             document.getElementById("skill").value = ""
         }
-      
+    }
 
+    //is called on intial two buttons
+    //takes in string type sets it for the page and create obj
+    function setProject(btnVal) {
+        setType(btnVal)
+        setCreateObj({
+            ...createObj, type: btnVal
+        })
+    }
+
+    function formSubmit() {
+        //TODO API route to Create Operation passing on createObj
+        console.log(createObj);
+        //resets the form
+        let elementsArray = document.getElementsByClassName("form-control");
+        for (let i = 0; i < elementsArray.length; i++) {
+            elementsArray[i].value = ""
+        }
     }
     return (
         <div>
