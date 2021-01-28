@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import ProfileNav from '../../../components/innerComponents/profileNav';
 
 export default function MyCreate() {
-    let [type, setType] = useState("");
+    let [type, setType] = useState("Project");
     let [skills, setSkills] = useState([]);
     let [tags, setTags] = useState([]);
     //an object for the project or community that is being created
@@ -16,8 +16,12 @@ export default function MyCreate() {
         skills: skills,
         parent: ""
     })
+
+  
+
  
     //hook to listen for down Enter
+   
     useEffect(() => {
         const listener = event => {
             if (event.code === "Enter" || event.code === "NumpadEnter") {
@@ -94,7 +98,7 @@ export default function MyCreate() {
 
                 <Form.Group>
                     <Form.Label>Skills</Form.Label>
-                    <Form.Control id="skill"  placeholder="Design, Marketing, etc" />
+                    <Form.Control id="skill" placeholder="Design, Marketing, etc" />
                 </Form.Group>
 
                 <Form.Group>
