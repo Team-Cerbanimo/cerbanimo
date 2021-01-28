@@ -4,6 +4,8 @@ import './teamMember.css';
 import { Card, Col } from 'react-bootstrap';
 
 export default function TeamMember(props) {
+    //should map skills -not working as expected
+    //plan to work on it later (not a priority)
     // let skills = props.skills.map(skill => {
     //    return <li>{skill.name}</li>
     // })

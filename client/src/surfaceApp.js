@@ -1,4 +1,4 @@
-import {useState, useEffect, React} from 'react';
+import { React} from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Home from './pages/surfacePages/home';
 import Register from './pages/surfacePages/register';

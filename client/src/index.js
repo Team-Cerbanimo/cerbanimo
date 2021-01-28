@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SurfaceApp from './surfaceApp';
-import InnerApp from './innerApp'
+import InnerApp from './innerApp';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //for now this variable is to represent whether 
 //or not a user is actively logged in 
-let authenticated = false
+let authenticated = true
 if(authenticated === false){
   ReactDOM.render(
     <React.StrictMode>
