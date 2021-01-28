@@ -25,8 +25,8 @@ export default function MyPersonal() {
             <li><a href={link.url}>{link.name}</a></li>
         )
     })
-    let newDescription = ""
-
+    let newDescription = profileObj.description
+    let newName = profileObj.name
     function displayEdit(displayContainer, editContainer) {
         document.getElementById(displayContainer).style.display = "none";
         document.getElementById(editContainer).style.display = "block";
@@ -42,26 +42,35 @@ export default function MyPersonal() {
                 <Row>
                     <Col>
                         <Row><img src={profileObj.img} alt="profile image"></img>    <i class="fas fa-pencil-alt"></i></Row>
-                        <Row><ul>{links}</ul>   <i class="fas fa-pencil-alt"></i></Row>
+                        <Row><ul id="currentProfileLinks">{links}</ul>   <i class="fas fa-pencil-alt"></i></Row>
                     </Col>
                     <Col>
-                        <Row><h2>{profileObj.name}</h2>  <i class="fas fa-pencil-alt"></i></Row>
-                        <Row>{profileObj.email}  <i class="fas fa-pencil-alt"></i></Row>
+                        <Row>
+                            <h2 id="currentProfileName">{profileObj.name}</h2>  <i onClick={() => displayEdit("currentProfileName", "editProfileName")}class="fas fa-pencil-alt"></i>
+                            <Form.Group id="editProfileName" style={{ display: "none" }}>
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control as="textarea" onChange={ (e) => newName = e.target.value }>{profileObj.name}</Form.Control>
+                                <Button type="button" onClick={() => { setProfileObj({ ...profileObj, name: newName }); hideEdit("currentProfileName", "editProfileName") }}>Save</Button>
+                            </Form.Group>
+                        </Row>
+                        <Row><p id="currentProfileEmail">{profileObj.email}</p>  <i class="fas fa-pencil-alt"></i></Row>
                         <Row>**********  <i class="fas fa-pencil-alt"></i></Row>
                     </Col>
                 </Row>
                 <Row>
-                    <Col><div id="currentProfileDescription">{profileObj.description}</div>
-                        <div id="editProfileDescription" style={{ display: "none" }}>
-                            <Form.Group >
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control onChange={(e) => newDescription = e.target.value} as="textarea" rows={3}>
-                                    {profileObj.description}
-                                </Form.Control>
-                                <Button type="button" onClick={() => { setProfileObj({ ...profileObj, description: newDescription }); hideEdit("currentProfileDescription", "editProfileDescription") }}>Save</Button>
-                            </Form.Group>
-                        </div>
-                    </Col><i onClick={() => displayEdit("currentProfileDescription", "editProfileDescription")} class="fas fa-pencil-alt"></i>
+                    <Col>
+                        <div id="currentProfileDescription">{profileObj.description}</div>
+
+                        <Form.Group id="editProfileDescription" style={{ display: "none" }} >
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control onChange={(e) => newDescription = e.target.value} as="textarea" rows={3}>
+                                {profileObj.description}
+                            </Form.Control>
+                            <Button type="button" onClick={() => { setProfileObj({ ...profileObj, description: newDescription }); hideEdit("currentProfileDescription", "editProfileDescription") }}>Save</Button>
+                        </Form.Group>
+
+                    </Col>
+                    <i onClick={() => displayEdit("currentProfileDescription", "editProfileDescription")} class="fas fa-pencil-alt"></i>
                 </Row>
             </Container>
         </div>
