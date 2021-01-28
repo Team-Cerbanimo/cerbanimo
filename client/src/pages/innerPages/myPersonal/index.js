@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import ProfileNav from '../../../components/innerComponents/profileNav';
-import { Col, Row, Container, Form, Button } from 'react-bootstrap'
+import { Col, Row, Container, Form, Button } from 'react-bootstrap';
 
 export default function MyPersonal() {
     let props = {
