@@ -6,6 +6,7 @@ import MyCreate from './pages/innerPages/myCreate';
 import MyPersonal from './pages/innerPages/myPersonal';
 import TaskMarket from './pages/innerPages/taskMarket';
 import InnerNav from './components/innerComponents/innerNav';
+import PublicProfile from './pages/innerPages/publicProfile';
 import SurfaceApp from './surfaceApp';
 import { render } from 'react-dom';
 
@@ -23,7 +24,7 @@ function InnerApp() {
                 }} />
                 <Route path="/profile" render={() => {
                     return (
-                        <MyPersonal/>
+                        <PublicProfile/>
                     )
                 }} />
                 <Route path="/my-projects" render={() => {

@@ -70,7 +70,6 @@ export default function MyCreate() {
     }
     return (
         <div>
-            <ProfileNav />
             <div>
                 <h1>You're making a {type}!</h1>
                 <p>This is where the magic happens! If the above is blank make a selection below</p>

@@ -37,7 +37,6 @@ export default function MyPersonal() {
     }
     return (
         <div>
-            <ProfileNav />
             <Container>
                 <Row>
                     <Col>
@@ -66,7 +65,7 @@ export default function MyPersonal() {
                             <Form.Control onChange={(e) => newDescription = e.target.value} as="textarea" rows={3}>
                                 {profileObj.description}
                             </Form.Control>
-                            <Button type="button" onClick={() => { setProfileObj({ ...profileObj, description: newDescription }); hideEdit("currentProfileDescription", "editProfileDescription") }}>Save</Button>
+                            <Button type="button" onClick={() => { setProfileObj({ ...profileObj, description: newDescription }); console.log(profileObj); hideEdit("currentProfileDescription", "editProfileDescription") }}>Save</Button>
                         </Form.Group>
 
                     </Col>

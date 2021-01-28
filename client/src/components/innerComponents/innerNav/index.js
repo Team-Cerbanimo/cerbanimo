@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav} from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from "react-router-bootstrap";
 import './innerNav.css';
 
@@ -26,8 +26,23 @@ export default function InnerNav() {
             <Nav.Link>Task-Market</Nav.Link>
           </LinkContainer>
 
-          <LinkContainer to="/profile">
-            <Nav.Link>Profile</Nav.Link>
+          <NavDropdown title="Profile" className="toggleDrop">
+            <LinkContainer to="/profile">
+              <Nav.Link>Public View</Nav.Link>
+            </LinkContainer>
+
+            <LinkContainer to="/personal">
+              <Nav.Link>Personal Info</Nav.Link>
+            </LinkContainer>
+
+            <LinkContainer to="/my-projects">
+              <Nav.Link>My Projects</Nav.Link>
+            </LinkContainer>
+
+          </NavDropdown>
+
+          <LinkContainer to="/create">
+            <Nav.Link>Create</Nav.Link>
           </LinkContainer>
 
           <LinkContainer to="/log-out">

@@ -34,7 +34,6 @@ export default function MyProjects(props) {
     })
     return (
         <div>
-            <ProfileNav/>
             <Button>Projects I Made</Button>
             <Button>Projects I am Working On</Button>
             <div>
