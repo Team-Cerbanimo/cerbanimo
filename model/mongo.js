@@ -114,48 +114,27 @@ const getUser = (userInfo, callback) => {
     });
 };
 
-//get project
+//get projects by category
 const getProjectsByCategory = (request, callback) => {
-    let categoryCount = request.categories.length;
-    let projectArray = new Array(categoryCount);
+    ensureConnection(async function(err) {
+        assert.equal(null, err);
+    
+        const db = client.db(dbName);
 
-    let getNextCategory = (x, callback) => {
-        if(x < categoryCount) {
-            console.log(x);
-            ensureConnection(function(err) {
-                assert.equal(null, err);
-            
-                const db = client.db(dbName);
+        const projectsCollection = db.collection('projects');
+
+        let projectQuery = {
+            categories: { $in: request.categories }
+        };
         
-                const projectsCollection = db.collection('projects');
+        let projects = await projectsCollection.find(projectQuery, {limit: request.maxProjectCount}).toArray();
 
-                let projectQuery = {
-                    'category': request.categories[x]
-                };
-                console.log(projectQuery);
-        
-                projectsCollection.find({projectQuery}, {limit: request.maxProjectCount}, (err, result) => {
-                    if(err) {
-                        console.log(err.errmsg);
-                    } else {
-                        console.log(result.toArray());
-                        projectArray[x] = {
-                            category: request.categories[x],
-                            topProjects: result.toArray()
-                        };
-
-                        getNextCategory(x+1, () => {
-                            if(x == 0) {
-                                callback(projectArray);
-                            }
-                        });
-                    }
-                });
-            });
-        }
-    }
-
-    getNextCategory(0);
+        callback({
+            categories: request.categories,
+            projects: projects,
+            err: null
+        });
+    });
 };
 
 //get dashboard
@@ -163,8 +142,6 @@ const getDashboard = (userInfo, callback) => {
     getUser(
         {username: userInfo.username, email: userInfo.email},
         (userResult) => {
-            console.log(userResult);
-
             ensureConnection(function(err) {
                 assert.equal(null, err);
             
@@ -176,12 +153,27 @@ const getDashboard = (userInfo, callback) => {
                     {categories: userResult.categories,
                     maxProjectCount: userInfo.maxProjectCount},
                     (projectResult) => {
-                        let returnObj = {
-                            'user': userResult,
-                            'projects': projectResult,
-                            'success': true
-                        };
-                        callback(returnObj);
+                        if(projectResult.projects) {
+                            callback({
+                                'user': userResult,
+                                'projects': projectResult.projects,
+                                'success': true
+                            });
+                        } else if(projectResult.err) {
+                            console.log(err);
+                            callback({
+                                'user': userResult,
+                                'projects': null,
+                                'success': false
+                            });
+                        } else {
+                            callback({
+                                'user': userResult,
+                                'projects': null,
+                                'success': true
+                            });
+                        }
+                        
                 });
             });
     });
