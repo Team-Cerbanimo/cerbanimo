@@ -37,17 +37,15 @@ export default function MyCreate() {
 
     //is called after enter down
     function updateArrays(arrType, arrInput) {
-        console.log(arrType, arrInput)
         if (arrType === "tag") {
             //puts that tag into the tag array
             tags.push(arrInput)
-            console.log(tags)
+            //resets the input field
             document.getElementById("tag").value = ""
         }
         //repeated but for skill instead of tag
         else if (arrType === "skill") {
             skills.push(arrInput)
-            console.log(skills)
             document.getElementById("skill").value = ""
         }
     }
@@ -74,7 +72,7 @@ export default function MyCreate() {
         <div>
             <ProfileNav />
             <div>
-                <h1>Your making a {type}!</h1>
+                <h1>You're making a {type}!</h1>
                 <p>This is where the magic happens! If the above is blank make a selection below</p>
                 <Button onClick={() => setProject("Project")}>Create Project</Button>
                 <Button onClick={() => setProject("Community")}>Create Community</Button>
