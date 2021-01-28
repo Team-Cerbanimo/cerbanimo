@@ -16,16 +16,13 @@ export default function MyCreate() {
         skills: skills,
         parent: ""
     })
-
-    //variable to determine whether or not a skill or a tag is being added
-    let tagVSskill = ""
-    //string value variable to hold that skill or tag
-    let inputtagVSskill = ""
+ 
     //hook to listen for down Enter
     useEffect(() => {
         const listener = event => {
             if (event.code === "Enter" || event.code === "NumpadEnter") {
-                setArrays(tagVSskill, inputtagVSskill)
+                updateArrays(event.target.id, event.target.value)
+                   //TODO NOT GETTING THESE VALUES SECOND TIME AROUND
             }
         };
         document.addEventListener("keydown", listener);
@@ -35,30 +32,18 @@ export default function MyCreate() {
     }, []);
 
     //is called after enter down
-    function setArrays(tagVSskill, inputtagVSskill) {
-        console.log(tagVSskill, inputtagVSskill)
-        if (tagVSskill === "Tag") {
+    function updateArrays(arrType, arrInput) {
+        console.log(arrType, arrInput)
+        if (arrType === "tag") {
             //puts that tag into the tag array
-            tags.push(inputtagVSskill)
+            tags.push(arrInput)
             console.log(tags)
-            //updates the create object with the new array
-            setCreateObj({
-                ...createObj, tags: tags
-            })
-            //resets variables and input on page
-            tagVSskill = ""
-            inputtagVSskill = ""
             document.getElementById("tag").value = ""
         }
         //repeated but for skill instead of tag
-        else if (tagVSskill === "Skill") {
-            skills.push(inputtagVSskill)
+        else if (arrType === "skill") {
+            skills.push(arrInput)
             console.log(skills)
-            setCreateObj({
-                ...createObj, skills: skills
-            })
-            tagVSskill = ""
-            inputtagVSskill = ""
             document.getElementById("skill").value = ""
         }
     }
@@ -72,7 +57,7 @@ export default function MyCreate() {
         })
     }
 
-    function formSubmit() {
+    function formClick() {
         //TODO API route to Create Operation passing on createObj
         console.log(createObj);
         //resets the form
@@ -104,12 +89,12 @@ export default function MyCreate() {
 
                 <Form.Group>
                     <Form.Label>Tags</Form.Label>
-                    <Form.Control id="tag" onChange={(e) => { tagVSskill = "Tag"; inputtagVSskill = e.target.value; console.log(tagVSskill, inputtagVSskill) }} placeholder="#protectTheEnvironment #technology" />
+                    <Form.Control id="tag"  placeholder="#protectTheEnvironment #technology" />
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Skills</Form.Label>
-                    <Form.Control id="skill" onChange={(e) => { tagVSskill = "Skill"; inputtagVSskill = e.target.value; console.log(tagVSskill, inputtagVSskill) }} placeholder="Design, Marketing, etc" />
+                    <Form.Control id="skill"  placeholder="Design, Marketing, etc" />
                 </Form.Group>
 
                 <Form.Group>
@@ -117,7 +102,7 @@ export default function MyCreate() {
                     <Form.Control onChange={(e) => setCreateObj({ ...createObj, parent: e.target.value })} placeholder={"Parent of " + type} />
                 </Form.Group>
 
-                <Button onClick={() => formSubmit()} variant="primary" type="button">
+                <Button onClick={() => formClick()} variant="primary" type="button">
                     Create
                 </Button>
             </Form>
