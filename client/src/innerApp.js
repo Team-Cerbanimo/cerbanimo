@@ -16,7 +16,6 @@ function InnerApp() {
         <HashRouter>
             <InnerNav/>
             <div className="innerApp">
-                innerApp
                 <Route exact path="/" component={Home} />
                 <Route path="/home" render={() => {
                     return (
