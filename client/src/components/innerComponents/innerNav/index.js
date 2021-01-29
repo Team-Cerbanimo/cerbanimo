@@ -28,15 +28,15 @@ export default function InnerNav() {
 
           <NavDropdown title="Profile" className="toggleDrop">
             <LinkContainer to="/profile">
-              <Nav.Link>Public View</Nav.Link>
+              <Nav.Link className="drops">Public View</Nav.Link>
             </LinkContainer>
 
             <LinkContainer to="/personal">
-              <Nav.Link>Personal Info</Nav.Link>
+              <Nav.Link className="drops">Personal Info</Nav.Link>
             </LinkContainer>
 
             <LinkContainer to="/my-projects">
-              <Nav.Link>My Projects</Nav.Link>
+              <Nav.Link className="drops">My Projects</Nav.Link>
             </LinkContainer>
 
           </NavDropdown>

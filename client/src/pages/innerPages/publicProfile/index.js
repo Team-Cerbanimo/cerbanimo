@@ -1,5 +1,6 @@
 import React from 'react';
-import { Col, Row, Container } from 'react-bootstrap';
+import { Col, Row, Container, Carousel } from 'react-bootstrap';
+import CommunityCard from '../../../components/innerComponents/communityCard'
 
 export default function PublicProfile() {
     let props = {
@@ -37,6 +38,19 @@ export default function PublicProfile() {
                     }
                 ]
             }
+        ],
+        communities: [
+            {
+                name: "stars",
+                description: "lorMollit est sint id sit esse duis.",
+                interest: "25%"
+            },
+            {
+                name: "bright",
+                description: "lorMollit est sint id sit esse duis.",
+                interest: "7.5%"
+            },
+            
         ]
     }
     let links = props.links.map(link => {
@@ -44,6 +58,20 @@ export default function PublicProfile() {
             <li><a href={link.url}>{link.name}</a></li>
         )
     })
+    let communities = props.communities.map(community => {
+        return (
+            <Carousel.Item>
+                <CommunityCard 
+                name = {community.name}
+                description = {community.description}
+                page = "public"
+                />
+                <h4>{community.interest}</h4>
+            </Carousel.Item>
+           
+        )
+    })
+    
     return (
             <Container>
                 <Row>
@@ -59,20 +87,22 @@ export default function PublicProfile() {
                 </Row>
                 <Row>
                     <Col></Col>
-                    <Col lg={9}>{props.description}</Col>
+                    <Col lg={10}>{props.description}</Col>
                     <Col></Col>
                 </Row>
                 <Row>
                     <Col></Col>
-                    <Col lg={9}>
+                    <Col lg={10}>
                         skill component
                     </Col>
                     <Col></Col>
                 </Row>
                 <Row>
                     <Col></Col>
-                    <Col lg={9}>
-                        carousel of communities
+                    <Col lg={10}>
+                        <Carousel>
+                            {communities}
+                        </Carousel>
                     </Col>
                     <Col></Col>
                 </Row>
