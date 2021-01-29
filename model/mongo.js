@@ -93,6 +93,40 @@ const authenticateUser = (userInfo, callback) => {
     });
 };
 
+//update user auth status
+const updateUserAuthStatus = (userInfo, callback) => {
+    let userToUpdate = {
+        username: userInfo.username || userInfo.email
+    };
+
+    let updates = {};
+    if(userInfo.authStatus) {
+        updates = { $set: {isAuthenticated: true, sessionID: userInfo.sessionID} };
+    } else {
+        updates = { $set: {isAuthenticated: false, sessionID: null} };
+    }
+
+    ensureConnection(function(err) {
+        assert.equal(null, err);
+    
+        const db = client.db(dbName);
+
+        const usersCollection = db.collection('users');
+
+        usersCollection.updateOne(userToUpdate, updates, (err, result) => {
+            let callbackResult = result; //default response object to be result
+            
+            //check for error and handle
+            if(err) {
+                callbackResult = err;
+            }
+            
+            //return either custom error response or result object
+            callback(callbackResult);
+        });
+    });
+};
+
 //get user
 const getUser = (userInfo, callback) => {
     let user = {
@@ -126,8 +160,8 @@ const getProjectsByCategory = (request, callback) => {
         let projectQuery = {
             categories: { $in: request.categories }
         };
-        
-        let projects = await projectsCollection.find(projectQuery, {limit: request.maxProjectCount}).toArray();
+        let order = { categories: 1 };
+        let projects = await projectsCollection.find(projectQuery, {limit: request.maxProjectCount}).sort(order).toArray();
 
         callback({
             categories: request.categories,
@@ -153,27 +187,28 @@ const getDashboard = (userInfo, callback) => {
                     {categories: userResult.categories,
                     maxProjectCount: userInfo.maxProjectCount},
                     (projectResult) => {
-                        if(projectResult.projects) {
+                        if(projectResult.err) {
+                            callback({
+                                'user': userResult || null,
+                                'projects': null,
+                                'success': false,
+                                'err': err
+                            });
+                        } else if(projectResult.projects) {
                             callback({
                                 'user': userResult,
                                 'projects': projectResult.projects,
-                                'success': true
-                            });
-                        } else if(projectResult.err) {
-                            console.log(err);
-                            callback({
-                                'user': userResult,
-                                'projects': null,
-                                'success': false
+                                'success': true,
+                                'err': null
                             });
                         } else {
                             callback({
-                                'user': userResult,
+                                'user': userResult || null,
                                 'projects': null,
-                                'success': true
+                                'success': true,
+                                'err': null
                             });
                         }
-                        
                 });
             });
     });
@@ -203,3 +238,4 @@ exports.mongoClient = client;
 exports.registerUser = registerUser;
 exports.authenticateUser = authenticateUser;
 exports.getDashboard = getDashboard;
+exports.updateUserAuthStatus = updateUserAuthStatus;

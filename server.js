@@ -7,6 +7,8 @@
 //requires
 var express = require('express');
 var path = require('path');
+var session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
 
 //routes
 var apiRouter = require('./routes/api');
@@ -23,6 +25,30 @@ const app = express();
 app.use(express.json());
 app.use(require('body-parser').urlencoded({ extended: false })); //for parsing HTTP form requests
 
+//initialize session store
+var sessionStore = new MongoDBStore({
+  uri: process.env.DB_CONNECTION,
+  databaseName: 'Cerbanimo',
+  collection: 'user-sessions',
+  connectionOptions: { useNewUrlParser: true, useUnifiedTopology: true }
+},
+(err) => {
+  if(err)  console.log(err);
+});
+
+sessionStore.on('error', function(error) {
+  console.log(error);
+});
+
+app.use(require('express-session')({
+  secret: process.env.SESSION_KEY,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 2 //2 days
+  },
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: true
+}));
 
 
 

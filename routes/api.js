@@ -143,21 +143,35 @@ router.post('/auth/login', (req, res) => {
     //authenticate user with DB
     mongodb.authenticateUser(
         {
-        username: req.body.username || req.body.email,
-        password: req.body.password
+            username: req.body.username || req.body.email,
+            password: req.body.password
         },
         (result) => {
-        authStatus = result;
-        
-        req.body.password = null;
+            authStatus = result;
+            
+            req.body.password = null;
 
-        var jsonResponse = {
-            'request': req.body,
-            'success': authStatus,
-            'token': '?'+req.body.username //TODO issue an actual auth token //express session?
-        };
-        
-        res.json(jsonResponse);
+            if(authStatus) {
+                (async () => {
+                    let result = await mongodb.updateUserAuthStatus({
+                        username: req.body.username,
+                        email: req.body.email,
+                        authStatus: true,
+                        sessionID: req.sessionID},
+
+                        (result) => {
+                            console.log(result);
+                    });
+                })();
+            }
+
+            var jsonResponse = {
+                'request': req.body,
+                'success': authStatus,
+                'session': (authStatus ? req.session : null)
+            };
+            
+            res.json(jsonResponse);
         }
     );
 });
