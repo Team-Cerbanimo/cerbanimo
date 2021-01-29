@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Row, Col } from 'react-bootstrap';
 
 export default function MyCreate() {
     let [type, setType] = useState("Project");
     let [skills, setSkills] = useState([]);
     let [tags, setTags] = useState([]);
-    let [arrMap, setArrMap] = useState([]);
+    let [arrMap, setArrMap] = useState( {tags: [], skills: []});
 
     //an object for the project or community that is being created
     //takes user inputs upon change & sumbission 
@@ -18,19 +18,43 @@ export default function MyCreate() {
         parent: ""
     })
 
-    useEffect(() => {
-        console.log(tags)
-        let newMap = tags.map(tag => {
-            console.log(tag)
+    //removes a tag or skill from the appropriate State
+    function set(arrType, cut) {
+        if (arrType === tags) {
+            setTags(arrType => arrType.filter((arrType, i) => i !== cut))
+        }
+        else if (arrType === skills) {
+            setSkills(arrType => arrType.filter((arrType, i) => i !== cut));
+        }
+        else {
+            console.log(arrType)
+        }
+    }
+
+    //takes the array and a string representation of the array 
+    //makes out the tags and skills on page
+    function mapping(arrType, string) {
+        let newMap = arrType.map(item => {
             return (
-                <div id={tag + "div"}>{tag}<i id={tag} onClick={(e) => { let cut = tags.indexOf(e.target.id); setTags(tags => tags.filter( (tags, i) => i !== cut)); }} className="far fa-times-circle"></i></div>
+                <Col id={item + "col"}>{item}<i id={item} onClick={(e) => { let cut = arrType.indexOf(e.target.id); set(arrType, cut); }} className="far fa-times-circle"></i></Col>
             )
         })
-        console.log(newMap)
-        setArrMap(newMap)
-        console.log(arrMap)
+        setArrMap({...arrMap,[string]: newMap}) 
+    }
 
+    //activates whenever tags state changes
+    useEffect(() => {
+        console.log(tags)
+        mapping(tags, "tags")
+        setCreateObj({ ...createObj, tags: tags })
     }, [tags])
+
+    //activates whenever skills state changes
+    useEffect(() => {
+        mapping(skills, "skills")
+        setCreateObj({ ...createObj, skills: skills })
+    }, [skills])
+
     //hook to listen for down Enter   
     useEffect(() => {
         const listener = event => {
@@ -49,27 +73,14 @@ export default function MyCreate() {
     //is called after enter down
     function updateArrays(arrType, arrInput) {
         if (arrType === "tag") {
-            //puts that tag into the tag array
-            //  let newTags = 
-
-            //  console.log(newTags)
-          
+            //puts that tag into the tag state
             setTags(tags => [...tags, arrInput])
-            // console.log(tags)
-            //maps tags on page
-            // currentTags = tags.map(tag => {
-            //     console.log(tag)
-            //     return (
-            //         <div id={tag}>{tag}<i onClick={(e) => { let cut = tags.indexOf(e.target.value); tags.splice(cut, 1); console.log(tags) }} class="far fa-times-circle"></i></div>
-            //     )
-            // })
-            // console.log(currentTags)
             //resets the input field
             document.getElementById("tag").value = ""
         }
         //repeated but for skill instead of tag
         else if (arrType === "skill") {
-            skills.push(arrInput)
+            setSkills(skills => [...skills, arrInput])
             document.getElementById("skill").value = ""
         }
     }
@@ -83,7 +94,7 @@ export default function MyCreate() {
         })
     }
 
-    function formClick() {
+   async function formClick() {
         //TODO API route to Create Operation passing on createObj
         console.log(createObj);
         //resets the form
@@ -91,6 +102,17 @@ export default function MyCreate() {
         for (let i = 0; i < elementsArray.length; i++) {
             elementsArray[i].value = ""
         }
+
+        await setSkills([]);
+        await setTags([]);
+        setCreateObj({  
+            type: type,
+            name: "",
+            description: "",
+            tags: tags,
+            skills: skills,
+            parent: ""});
+        
     }
 
 
@@ -117,12 +139,13 @@ export default function MyCreate() {
                 <Form.Group>
                     <Form.Label>Tags</Form.Label>
                     <Form.Control id="tag" placeholder="#protectTheEnvironment #technology" />
-                    <div id="currentTags">{arrMap}</div>
+                    <Row id="currentTags">{arrMap.tags}</Row>
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Skills</Form.Label>
                     <Form.Control id="skill" placeholder="Design, Marketing, etc" />
+                    <Row id="currentSkills">{arrMap.skills}</Row>
                 </Form.Group>
 
                 <Form.Group>
