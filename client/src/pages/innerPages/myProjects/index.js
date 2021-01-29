@@ -1,7 +1,6 @@
 import React from 'react';
 import { Col, Button } from 'react-bootstrap';
 import ProjectCard from '../../../components/innerComponents/projectCard';
-import ProfileNav from '../../../components/innerComponents/profileNav';
 
 export default function MyProjects(props) {
     //TODO make an API call using props.userID

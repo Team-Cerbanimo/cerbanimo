@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from 'react';
-import ProfileNav from '../../../components/innerComponents/profileNav';
 import { Col, Row, Container, Form, Button } from 'react-bootstrap';
 
 export default function MyPersonal() {
@@ -26,7 +25,7 @@ export default function MyPersonal() {
         )
     })
     let newDescription = profileObj.description
-    let newName = profileObj.name
+    let newEmail = profileObj.email
     function displayEdit(displayContainer, editContainer) {
         document.getElementById(displayContainer).style.display = "none";
         document.getElementById(editContainer).style.display = "block";
@@ -45,15 +44,16 @@ export default function MyPersonal() {
                     </Col>
                     <Col>
                         <Row>
-                            <h2 id="currentProfileName">{profileObj.name}</h2>  <i onClick={() => displayEdit("currentProfileName", "editProfileName")}class="fas fa-pencil-alt"></i>
-                            <Form.Group id="editProfileName" style={{ display: "none" }}>
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control as="textarea" onChange={ (e) => newName = e.target.value }>{profileObj.name}</Form.Control>
-                                <Button type="button" onClick={() => { setProfileObj({ ...profileObj, name: newName }); hideEdit("currentProfileName", "editProfileName") }}>Save</Button>
+                            <h2>{profileObj.name}</h2>  
+                        </Row>
+                        <Row><p id="currentProfileEmail">{profileObj.email}</p> <i onClick={() => displayEdit("currentProfileEmail", "editProfileEmail")}class="fas fa-pencil-alt"></i>
+                            <Form.Group id="editProfileEmail" style={{ display: "none" }}>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control as="textarea" onChange={ (e) => newEmail = e.target.value }>{profileObj.email}</Form.Control>
+                                <Button type="button" onClick={() => { setProfileObj({ ...profileObj, email: newEmail }); hideEdit("currentProfileEmail", "editProfileEmail") }}>Save</Button>
                             </Form.Group>
                         </Row>
-                        <Row><p id="currentProfileEmail">{profileObj.email}</p>  <i class="fas fa-pencil-alt"></i></Row>
-                        <Row>**********  <i class="fas fa-pencil-alt"></i></Row>
+                        <Row><p>**********</p>  <a href="#">reset passoword</a></Row>
                     </Col>
                 </Row>
                 <Row>

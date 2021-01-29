@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import ProfileNav from '../../../components/innerComponents/profileNav';
 
 export default function MyCreate() {
     let [type, setType] = useState("Project");
