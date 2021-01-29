@@ -19,7 +19,7 @@ export default function PublicProfile() {
         ], 
         skills: [
             {
-                name: "Skill 1",
+                name: "Skill",
                 currentLevel: 4, 
                 subSkills: [ 
                     {
@@ -29,7 +29,7 @@ export default function PublicProfile() {
                 ]
             },
             {
-                name: "Skill 2",
+                name: "Skill two ",
                 currentLevel: 3,
                 subSkills: [ 
                     {
@@ -81,8 +81,8 @@ export default function PublicProfile() {
                     </Col>
                     <Col>
                         <Row><h2>{props.name}</h2></Row>
-                        <Row>{props.skills[0].name}   {props.skills[0].level}</Row>
-                        <Row>{props.skills[1].name}   {props.skills[1].level}</Row>
+                        <Row>{props.skills[0].name}   {props.skills[0].currentLevel}</Row>
+                        <Row>{props.skills[1].name}   {props.skills[1].currentLevel}</Row>
                     </Col>
                 </Row>
                 <Row>

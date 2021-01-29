@@ -5,6 +5,8 @@ export default function MyCreate() {
     let [type, setType] = useState("Project");
     let [skills, setSkills] = useState([]);
     let [tags, setTags] = useState([]);
+    let [arrMap, setArrMap] = useState([]);
+
     //an object for the project or community that is being created
     //takes user inputs upon change & sumbission 
     let [createObj, setCreateObj] = useState({
@@ -16,16 +18,26 @@ export default function MyCreate() {
         parent: ""
     })
 
-  
+    useEffect(() => {
+        console.log(tags)
+        let newMap = tags.map(tag => {
+            console.log(tag)
+            return (
+                <div id={tag + "div"}>{tag}<i id={tag} onClick={(e) => { let cut = tags.indexOf(e.target.id); setTags(tags => tags.filter( (tags, i) => i !== cut)); }} className="far fa-times-circle"></i></div>
+            )
+        })
+        console.log(newMap)
+        setArrMap(newMap)
+        console.log(arrMap)
 
- 
-    //hook to listen for down Enter
-   
+    }, [tags])
+    //hook to listen for down Enter   
     useEffect(() => {
         const listener = event => {
             if (event.code === "Enter" || event.code === "NumpadEnter") {
+                event.preventDefault();
                 updateArrays(event.target.id, event.target.value)
-                   //TODO NOT GETTING THESE VALUES SECOND TIME AROUND
+                //TODO NOT GETTING THESE VALUES SECOND TIME AROUND
             }
         };
         document.addEventListener("keydown", listener);
@@ -38,7 +50,20 @@ export default function MyCreate() {
     function updateArrays(arrType, arrInput) {
         if (arrType === "tag") {
             //puts that tag into the tag array
-            tags.push(arrInput)
+            //  let newTags = 
+
+            //  console.log(newTags)
+          
+            setTags(tags => [...tags, arrInput])
+            // console.log(tags)
+            //maps tags on page
+            // currentTags = tags.map(tag => {
+            //     console.log(tag)
+            //     return (
+            //         <div id={tag}>{tag}<i onClick={(e) => { let cut = tags.indexOf(e.target.value); tags.splice(cut, 1); console.log(tags) }} class="far fa-times-circle"></i></div>
+            //     )
+            // })
+            // console.log(currentTags)
             //resets the input field
             document.getElementById("tag").value = ""
         }
@@ -67,6 +92,8 @@ export default function MyCreate() {
             elementsArray[i].value = ""
         }
     }
+
+
     return (
         <div>
             <div>
@@ -89,7 +116,8 @@ export default function MyCreate() {
 
                 <Form.Group>
                     <Form.Label>Tags</Form.Label>
-                    <Form.Control id="tag"  placeholder="#protectTheEnvironment #technology" />
+                    <Form.Control id="tag" placeholder="#protectTheEnvironment #technology" />
+                    <div id="currentTags">{arrMap}</div>
                 </Form.Group>
 
                 <Form.Group>

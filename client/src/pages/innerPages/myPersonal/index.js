@@ -50,7 +50,7 @@ export default function MyPersonal() {
                             <Form.Group id="editProfileEmail" style={{ display: "none" }}>
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control as="textarea" onChange={ (e) => newEmail = e.target.value }>{profileObj.email}</Form.Control>
-                                <Button type="button" onClick={() => { setProfileObj({ ...profileObj, email: newEmail }); hideEdit("currentProfileEmail", "editProfileEmail") }}>Save</Button>
+                                <Button type="button" onClick={() => {setProfileObj({ ...profileObj, email: newEmail }); hideEdit("currentProfileEmail", "editProfileEmail") }}>Save</Button>
                             </Form.Group>
                         </Row>
                         <Row><p>**********</p>  <a href="#">reset passoword</a></Row>
