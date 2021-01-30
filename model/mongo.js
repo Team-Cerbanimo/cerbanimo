@@ -20,7 +20,7 @@ const dbName = 'Cerbanimo';
 
 //initialize session store
 var sessionStore = new MongoDBStore({
-  uri: process.env.DB_CONNECTION,
+  uri: process.env.DB_CONNECTION || null,
   databaseName: dbName,
   collection: 'UserSession',
   connectionOptions: { useNewUrlParser: true, useUnifiedTopology: true }
@@ -33,7 +33,7 @@ sessionStore.on('error', function(error) {
   console.log(error);
 });
 
-const client = new MongoClient(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(process.env.DB_CONNECTION || null, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 //register a user

@@ -26,7 +26,7 @@ app.use(require('body-parser').urlencoded({ extended: false })); //for parsing H
 var sessionStore = mongodb.sessionStore;
 
 app.use(require('express-session')({
-  secret: process.env.SESSION_KEY,
+  secret: process.env.SESSION_KEY || "WARNING Key Not Found in env",
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 2 //2 days
   },
