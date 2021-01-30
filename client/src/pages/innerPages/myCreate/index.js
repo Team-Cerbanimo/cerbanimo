@@ -44,7 +44,6 @@ export default function MyCreate() {
 
     //activates whenever tags state changes
     useEffect(() => {
-        console.log(tags)
         mapping(tags, "tags")
         setCreateObj({ ...createObj, tags: tags })
     }, [tags])
