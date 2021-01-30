@@ -176,4 +176,43 @@ router.post('/auth/login', (req, res) => {
     );
 });
 
+router.post('/auth/logout', (req, res) => {
+    var authStatus = false;
+
+    //logout user by destroying session and removing any DB flags
+    mongodb.logoutUser(
+        {
+            username: req.body.username || req.body.email,
+            sessionID: req.sessionID
+        },
+        (result) => {
+            let success = result;
+
+            if(success) { //Document was updated successfully
+                mongodb.sessionStore.destroy(req.sessionID, (err) => {
+                    if(err) { //could not destroy session in DB
+                        success = false;
+                    } else {
+                        req.session.destroy((err) => {
+                            if(err) { //could not destroy client session
+                                success = false;
+                            }
+            
+                            res.json({
+                                'request': req.body,
+                                'success': success
+                            });
+                        });
+                    }
+                });
+            } else {
+                res.json({
+                    'request': req.body,
+                    'success': success
+                });
+            }
+        }
+    );
+});
+
 module.exports = router;
