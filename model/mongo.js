@@ -5,6 +5,8 @@
  */
 
 const MongoClient = require('mongodb').MongoClient;
+var session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
 const assert = require('assert');
 const readline = require('readline').createInterface({
     input: process.stdin,
@@ -15,6 +17,21 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const dbName = 'Cerbanimo';
+
+//initialize session store
+var sessionStore = new MongoDBStore({
+  uri: process.env.DB_CONNECTION,
+  databaseName: dbName,
+  collection: 'UserSession',
+  connectionOptions: { useNewUrlParser: true, useUnifiedTopology: true }
+},
+(err) => {
+  if(err)  console.log(err);
+});
+
+sessionStore.on('error', function(error) {
+  console.log(error);
+});
 
 const client = new MongoClient(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -93,6 +110,36 @@ const authenticateUser = (userInfo, callback) => {
     });
 };
 
+//logout a user
+const logoutUser = (userInfo, callback) => {
+    let userToLogout = {
+        username: userInfo.username || userInfo.email,
+        sessionID: userInfo.sessionID
+    };
+
+    let updates = { $set: {isAuthenticated: false}, $unset: {sessionID: ""} };
+
+    let success = false;
+
+    ensureConnection(function(err) {
+        assert.equal(null, err);
+    
+        const db = client.db(dbName);
+
+        const usersCollection = db.collection('User');
+
+        usersCollection.findOneAndUpdate(userToLogout, updates, (err, result) => {
+            if(err) {
+                console.log(err);
+            } else {
+                success = true;
+            }
+
+            callback(success);
+        });
+    });
+};
+
 //update user auth status
 const updateUserAuthStatus = (userInfo, callback) => {
     let userToUpdate = {
@@ -103,7 +150,7 @@ const updateUserAuthStatus = (userInfo, callback) => {
     if(userInfo.authStatus) {
         updates = { $set: {isAuthenticated: true, sessionID: userInfo.sessionID} };
     } else {
-        updates = { $set: {isAuthenticated: false, sessionID: null} };
+        updates = { $set: {isAuthenticated: false}, $unset: {sessionID: ""} };
     }
 
     ensureConnection(function(err) {
@@ -235,7 +282,9 @@ const ensureConnection = (callback) => {
 };
 
 exports.mongoClient = client;
+exports.sessionStore = sessionStore;
 exports.registerUser = registerUser;
 exports.authenticateUser = authenticateUser;
+exports.logoutUser = logoutUser;
 exports.getDashboard = getDashboard;
 exports.updateUserAuthStatus = updateUserAuthStatus;
