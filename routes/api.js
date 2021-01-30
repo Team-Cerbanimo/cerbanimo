@@ -165,6 +165,8 @@ router.post('/auth/login', (req, res) => {
                 })();
             }
 
+            req.session.isAuthenticated = true;
+
             var jsonResponse = {
                 'request': req.body,
                 'success': authStatus,
@@ -196,6 +198,7 @@ router.post('/auth/logout', (req, res) => {
                         req.session.destroy((err) => {
                             if(err) { //could not destroy client session
                                 success = false;
+                                req.session.isAuthenticated = false;
                             }
             
                             res.json({
