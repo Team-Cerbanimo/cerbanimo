@@ -29,7 +29,7 @@ app.use(require('body-parser').urlencoded({ extended: false })); //for parsing H
 var sessionStore = new MongoDBStore({
   uri: process.env.DB_CONNECTION,
   databaseName: 'Cerbanimo',
-  collection: 'user-sessions',
+  collection: 'UserSession',
   connectionOptions: { useNewUrlParser: true, useUnifiedTopology: true }
 },
 (err) => {

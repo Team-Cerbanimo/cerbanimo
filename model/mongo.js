@@ -34,7 +34,7 @@ const registerUser = (userInfo, callback) => {
     
         const db = client.db(dbName);
 
-        const usersCollection = db.collection('users');
+        const usersCollection = db.collection('User');
 
         usersCollection.insertOne(userToAdd, (err, result) => {
             let callbackResult = result; //default response object to be result
@@ -77,7 +77,7 @@ const authenticateUser = (userInfo, callback) => {
     
         const db = client.db(dbName);
 
-        const usersCollection = db.collection('users');
+        const usersCollection = db.collection('User');
 
         usersCollection.findOne(userToAuth, (err, result) => {
             assert.equal(err, null);
@@ -111,7 +111,7 @@ const updateUserAuthStatus = (userInfo, callback) => {
     
         const db = client.db(dbName);
 
-        const usersCollection = db.collection('users');
+        const usersCollection = db.collection('User');
 
         usersCollection.updateOne(userToUpdate, updates, (err, result) => {
             let callbackResult = result; //default response object to be result
@@ -138,7 +138,7 @@ const getUser = (userInfo, callback) => {
     
         const db = client.db(dbName);
 
-        const usersCollection = db.collection('users');
+        const usersCollection = db.collection('User');
 
         usersCollection.findOne(user, { projection: {hash: 0} }, (err, result) => {
             assert.equal(err, null);
@@ -155,7 +155,7 @@ const getProjectsByCategory = (request, callback) => {
     
         const db = client.db(dbName);
 
-        const projectsCollection = db.collection('projects');
+        const projectsCollection = db.collection('Project');
 
         let projectQuery = {
             categories: { $in: request.categories }
@@ -181,7 +181,7 @@ const getDashboard = (userInfo, callback) => {
             
                 const db = client.db(dbName);
         
-                const projectsCollection = db.collection('projects');
+                const projectsCollection = db.collection('Project');
         
                 getProjectsByCategory(
                     {categories: userResult.categories,
