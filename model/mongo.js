@@ -29,8 +29,6 @@ const registerUser = (userInfo, callback) => {
         hash: pHash
     };
 
-    //TODO check if user already exists
-
     ensureConnection(function(err) {
         assert.equal(null, err);
     
@@ -39,9 +37,29 @@ const registerUser = (userInfo, callback) => {
         const usersCollection = db.collection('users');
 
         usersCollection.insertOne(userToAdd, (err, result) => {
-            assert.equal(err, null);
-            console.log("Created new user successfully");
-            callback(result);
+            let callbackResult = result; //default response object to be result
+            
+            //check for error and handle
+            if(err) {
+                if(err.errmsg.indexOf("E11000") >= 0) {
+                    let problemField = "UNKNOWN FIELD";
+                    if(err.keyValue.email) {
+                        problemField = "email";
+                    } else if(err.keyValue.username) {
+                        problemField = "username";
+                    }
+
+                    callbackResult = {
+                        error: true,
+                        errmsg: `Oops! That ${problemField} is already in use.`
+                    };
+                } else {
+                    callbackResult = err;
+                }
+            }
+            
+            //return either custom error response or result object
+            callback(callbackResult);
         });
     });
 };
@@ -75,51 +93,91 @@ const authenticateUser = (userInfo, callback) => {
     });
 };
 
+//get user
+const getUser = (userInfo, callback) => {
+    let user = {
+        username: userInfo.username || userInfo.email
+    };
 
-//test an insertion
-const insertDocuments = function(db, callback) {
-    // Get the collection
-    const collection = db.collection('tyler-test');
+    ensureConnection(function(err) {
+        assert.equal(null, err);
+    
+        const db = client.db(dbName);
 
-    // Insert some documents
-    collection.insertMany([
-      {a : 1}, {a : 2}, {a : 3}
-    ], function(err, result) {
-      assert.equal(err, null);
-      assert.equal(3, result.result.n);
-      assert.equal(3, result.ops.length);
-      console.log("Inserted 3 documents into tyler-test collection");
-      callback(result);
+        const usersCollection = db.collection('users');
+
+        usersCollection.findOne(user, { projection: {hash: 0} }, (err, result) => {
+            assert.equal(err, null);
+
+            callback(result);
+        });
     });
-}
+};
 
-//test a removal
-const removeDocument = function(db, callback) {
-    // Get the collection
-    const collection = db.collection('tyler-test');
+//get projects by category
+const getProjectsByCategory = (request, callback) => {
+    ensureConnection(async function(err) {
+        assert.equal(null, err);
+    
+        const db = client.db(dbName);
 
-    // Delete document where a is 3
-    collection.deleteOne({ a : 3 }, function(err, result) {
-      assert.equal(err, null);
-      assert.equal(1, result.result.n);
-      console.log("Removed the document with the field a equal to 3");
-      callback(result);
-    });    
-}
+        const projectsCollection = db.collection('projects');
 
-//test a find
-const findDocument = function(db, callback) {
-    // Get the collection
-    const collection = db.collection('tyler-test');
+        let projectQuery = {
+            categories: { $in: request.categories }
+        };
+        
+        let projects = await projectsCollection.find(projectQuery, {limit: request.maxProjectCount}).toArray();
 
-    // Find document where a is 2
-    collection.findOne({ a : 2 }, function(err, result) {
-    assert.equal(err, null);
-    console.log("Found the document with the field a equal to 2");
-    callback(result);
-    });    
-}
+        callback({
+            categories: request.categories,
+            projects: projects,
+            err: null
+        });
+    });
+};
 
+//get dashboard
+const getDashboard = (userInfo, callback) => {
+    getUser(
+        {username: userInfo.username, email: userInfo.email},
+        (userResult) => {
+            ensureConnection(function(err) {
+                assert.equal(null, err);
+            
+                const db = client.db(dbName);
+        
+                const projectsCollection = db.collection('projects');
+        
+                getProjectsByCategory(
+                    {categories: userResult.categories,
+                    maxProjectCount: userInfo.maxProjectCount},
+                    (projectResult) => {
+                        if(projectResult.projects) {
+                            callback({
+                                'user': userResult,
+                                'projects': projectResult.projects,
+                                'success': true
+                            });
+                        } else if(projectResult.err) {
+                            console.log(err);
+                            callback({
+                                'user': userResult,
+                                'projects': null,
+                                'success': false
+                            });
+                        } else {
+                            callback({
+                                'user': userResult,
+                                'projects': null,
+                                'success': true
+                            });
+                        }
+                        
+                });
+            });
+    });
+};
 
 //validate there is a connection and execute the callback function
 const ensureConnection = (callback) => {
@@ -141,44 +199,7 @@ const ensureConnection = (callback) => {
     }
 };
 
-
-//call ensure function with callback to run test based on switch-case
-//TESTING ONLY
-/*
-ensureConnection(function(err) {
-    assert.equal(null, err);
-
-    const db = client.db(dbName);
-    
-    const mode = 5; //set mode for switch below
-
-    switch(mode) {
-        case 1:
-            insertDocuments(db, function() {
-                return;
-            });
-            break;
-
-        case 2:
-            removeDocument(db, function() {
-                return;
-            });
-            break;
-
-        case 3:
-            findDocument(db, function(res) {
-                console.log(res);
-                return;
-            });
-            break;
-
-        default:
-            console.log("Not using MongoDB for this session, disconnected");
-            client.close();
-    }
-});
-*/
-
 exports.mongoClient = client;
 exports.registerUser = registerUser;
 exports.authenticateUser = authenticateUser;
+exports.getDashboard = getDashboard;
