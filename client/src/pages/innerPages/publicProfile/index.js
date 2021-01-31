@@ -16,25 +16,25 @@ export default function PublicProfile() {
                 url: "https://www.linkedin.com/in/anthony-stembreit/",
                 name: "LinkedIn"
             }
-        ], 
+        ],
         skills: [
             {
                 name: "Skill",
-                currentLevel: 4, 
-                subSkills: [ 
+                currentLevel: 4,
+                subSkills: [
                     {
                         name: "sub Skill",
-                        currentLevel: 2,   
+                        currentLevel: 2,
                     }
                 ]
             },
             {
                 name: "Skill two ",
                 currentLevel: 3,
-                subSkills: [ 
+                subSkills: [
                     {
                         name: "sub Skill",
-                        currentLevel: 4,   
+                        currentLevel: 4,
                     }
                 ]
             }
@@ -50,7 +50,7 @@ export default function PublicProfile() {
                 description: "lorMollit est sint id sit esse duis.",
                 interest: "7.5%"
             },
-            
+
         ]
     }
     let links = props.links.map(link => {
@@ -58,54 +58,75 @@ export default function PublicProfile() {
             <li><a href={link.url}>{link.name}</a></li>
         )
     })
+   
     let communities = props.communities.map(community => {
         return (
             <Carousel.Item>
-                <CommunityCard 
-                name = {community.name}
-                description = {community.description}
-                page = "public"
-                />
-                <h4>{community.interest}</h4>
+                <Row>
+                    <Col>
+                        <CommunityCard
+                            name={community.name}
+                            description={community.description}
+                            page="public"
+                        />
+                        <h4>{community.interest}</h4>
+                    </Col>
+                    <Col>
+                        <CommunityCard
+                            name={community.name}
+                            description={community.description}
+                            page="public"
+                        />
+                        <h4>{community.interest}</h4>
+                    </Col>
+                    <Col>
+                        <CommunityCard
+                            name={community.name}
+                            description={community.description}
+                            page="public"
+                        />
+                        <h4>{community.interest}</h4>
+                    </Col>
+                </Row>
             </Carousel.Item>
-           
+
         )
     })
-    
+
     return (
-            <Container>
-                <Row>
-                    <Col>
-                        <Row><img src={props.img} alt="profile picture"></img></Row>
-                        <Row><ul>{links}</ul></Row>
+        <Container>
+            <Row>
+                <Col>
+                    <Row><img src={props.img} alt="profile picture"></img></Row>
+                    <Row><ul>{links}</ul></Row>
+                </Col>
+                <Col>
+                    <Row><h2>{props.name}</h2></Row>
+                    <Row>{props.skills[0].name}   {props.skills[0].currentLevel}</Row>
+                    <Row>{props.skills[1].name}   {props.skills[1].currentLevel}</Row>
+                </Col>
+            </Row>
+            <Row>
+                <Col></Col>
+                <Col lg={10}>{props.description}</Col>
+                <Col></Col>
+            </Row>
+            <Row>
+                <Col></Col>
+                <Col lg={10}>
+                    skill component
                     </Col>
-                    <Col>
-                        <Row><h2>{props.name}</h2></Row>
-                        <Row>{props.skills[0].name}   {props.skills[0].currentLevel}</Row>
-                        <Row>{props.skills[1].name}   {props.skills[1].currentLevel}</Row>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col></Col>
-                    <Col lg={10}>{props.description}</Col>
-                    <Col></Col>
-                </Row>
-                <Row>
-                    <Col></Col>
-                    <Col lg={10}>
-                        skill component
-                    </Col>
-                    <Col></Col>
-                </Row>
-                <Row>
-                    <Col></Col>
-                    <Col lg={10}>
-                        <Carousel>
-                            {communities}
-                        </Carousel>
-                    </Col>
-                    <Col></Col>
-                </Row>
-            </Container>
+                <Col></Col>
+            </Row>
+            <Row>
+                <Col></Col>
+                <Col lg={10}>
+                    <Carousel>
+                        {communities}
+                    </Carousel>
+                </Col>
+                <Col></Col>
+            </Row>
+        </Container>
     )
 }

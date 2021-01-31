@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from 'react';
-import { Button, Form, Row, Col } from 'react-bootstrap';
+import { Button, Form, Row, Col, Container} from 'react-bootstrap';
 
 export default function MyCreate() {
     let [type, setType] = useState("Project");
     let [skills, setSkills] = useState([]);
     let [tags, setTags] = useState([]);
-    let [arrMap, setArrMap] = useState( {tags: [], skills: []});
+    let [arrMap, setArrMap] = useState({ tags: [], skills: [] });
 
     //an object for the project or community that is being created
     //takes user inputs upon change & sumbission 
@@ -39,7 +39,7 @@ export default function MyCreate() {
                 <Col id={item + "col"}>{item}<i id={item} onClick={(e) => { let cut = arrType.indexOf(e.target.id); set(arrType, cut); }} className="far fa-times-circle"></i></Col>
             )
         })
-        setArrMap({...arrMap,[string]: newMap}) 
+        setArrMap({ ...arrMap, [string]: newMap })
     }
 
     //activates whenever tags state changes
@@ -93,7 +93,7 @@ export default function MyCreate() {
         })
     }
 
-   async function formClick() {
+    async function formClick() {
         //TODO API route to Create Operation passing on createObj
         console.log(createObj);
         //resets the form
@@ -104,58 +104,71 @@ export default function MyCreate() {
 
         await setSkills([]);
         await setTags([]);
-        setCreateObj({  
+        setCreateObj({
             type: type,
             name: "",
             description: "",
             tags: tags,
             skills: skills,
-            parent: ""});
-        
+            parent: ""
+        });
+
     }
 
 
     return (
-        <div>
-            <div>
-                <h1>You're making a {type}!</h1>
-                <p>This is where the magic happens! If the above is blank make a selection below</p>
-                <Button onClick={() => setProject("Project")}>Create Project</Button>
-                <Button onClick={() => setProject("Community")}>Create Community</Button>
+        <Container>
+            <Row>
+                <Col lg={12}>
+                    <h1>You're making a {type}!</h1>
+                    <br></br>
+                    <p>This is where the magic happens! If the above is blank make a selection below</p>
+                </Col>
+                
+                <Col lg={12}>
+                    <Button onClick={() => setProject("Project")}>Create Project</Button>
+                    <Button onClick={() => setProject("Community")}>Create Community</Button>
+                </Col>
+            </Row>
+            <Row>
+                <Col></Col>
+                <Col lg={12}>
 
-            </div>
-            <Form>
-                <Form.Group>
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control onChange={(e) => setCreateObj({ ...createObj, name: e.target.value })} type="name" placeholder={type + " Name"} />
-                </Form.Group>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control onChange={(e) => setCreateObj({ ...createObj, name: e.target.value })} type="name" placeholder={type + " Name"} />
+                        </Form.Group>
 
-                <Form.Group>
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control onChange={(e) => setCreateObj({ ...createObj, description: e.target.value })} as="textarea" rows={3} />
-                </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control onChange={(e) => setCreateObj({ ...createObj, description: e.target.value })} as="textarea" rows={3} />
+                        </Form.Group>
 
-                <Form.Group>
-                    <Form.Label>Tags</Form.Label>
-                    <Form.Control id="tag" placeholder="#protectTheEnvironment #technology" />
-                    <Row id="currentTags">{arrMap.tags}</Row>
-                </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Tags</Form.Label>
+                            <Form.Control id="tag" placeholder="#protectTheEnvironment #technology" />
+                            <Row id="currentTags">{arrMap.tags}</Row>
+                        </Form.Group>
 
-                <Form.Group>
-                    <Form.Label>Skills</Form.Label>
-                    <Form.Control id="skill" placeholder="Design, Marketing, etc" />
-                    <Row id="currentSkills">{arrMap.skills}</Row>
-                </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Skills</Form.Label>
+                            <Form.Control id="skill" placeholder="Design, Marketing, etc" />
+                            <Row id="currentSkills">{arrMap.skills}</Row>
+                        </Form.Group>
 
-                <Form.Group>
-                    <Form.Label>Parent</Form.Label>
-                    <Form.Control onChange={(e) => setCreateObj({ ...createObj, parent: e.target.value })} placeholder={"Parent of " + type} />
-                </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Parent</Form.Label>
+                            <Form.Control onChange={(e) => setCreateObj({ ...createObj, parent: e.target.value })} placeholder={"Parent of " + type} />
+                        </Form.Group>
 
-                <Button onClick={() => formClick()} variant="primary" type="button">
-                    Create
-                </Button>
-            </Form>
-        </div>
+                        <Button onClick={() => formClick()} variant="primary" type="button">
+                            Create
+                        </Button>
+                    </Form>
+                </Col>
+                <Col></Col>
+            </Row>
+        </Container>
     )
 }
