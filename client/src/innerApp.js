@@ -7,6 +7,7 @@ import MyPersonal from './pages/innerPages/myPersonal';
 import TaskMarket from './pages/innerPages/taskMarket';
 import InnerNav from './components/innerComponents/innerNav';
 import PublicProfile from './pages/innerPages/publicProfile';
+import ProjectPage from './pages/innerPages/project';
 import SurfaceApp from './surfaceApp';
 import { render } from 'react-dom';
 
@@ -50,6 +51,16 @@ function InnerApp() {
                  {/* <Route path="/:username" render={() => {
                     return (
                         <PublicProfile/>
+                    )
+                }} /> */}
+                 <Route path="/project" render={() => {
+                    return (
+                        <ProjectPage/>
+                    )
+                }} />
+                 {/* <Route path="/:projectName" render={() => {
+                    return (
+                        <ProjectPage/>
                     )
                 }} /> */}
                 {/* <Route path="/log-out" render={() => {
