@@ -23,6 +23,17 @@ const app = express();
 app.use(express.json());
 app.use(require('body-parser').urlencoded({ extended: false })); //for parsing HTTP form requests
 
+var sessionStore = mongodb.sessionStore;
+
+app.use(require('express-session')({
+  secret: process.env.SESSION_KEY || "WARNING Key Not Found in env",
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 2 //2 days
+  },
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: true
+}));
 
 
 

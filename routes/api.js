@@ -143,21 +143,77 @@ router.post('/auth/login', (req, res) => {
     //authenticate user with DB
     mongodb.authenticateUser(
         {
-        username: req.body.username || req.body.email,
-        password: req.body.password
+            username: req.body.username || req.body.email,
+            password: req.body.password
         },
         (result) => {
-        authStatus = result;
-        
-        req.body.password = null;
+            authStatus = result;
+            
+            req.body.password = null;
 
-        var jsonResponse = {
-            'request': req.body,
-            'success': authStatus,
-            'token': '?'+req.body.username //TODO issue an actual auth token //express session?
-        };
-        
-        res.json(jsonResponse);
+            if(authStatus) {
+                (async () => {
+                    let result = await mongodb.updateUserAuthStatus({
+                        username: req.body.username,
+                        email: req.body.email,
+                        authStatus: true,
+                        sessionID: req.sessionID},
+
+                        (result) => {
+                            console.log(result);
+                    });
+                })();
+            }
+
+            req.session.isAuthenticated = true;
+
+            var jsonResponse = {
+                'request': req.body,
+                'success': authStatus,
+                'session': (authStatus ? req.session : null)
+            };
+            
+            res.json(jsonResponse);
+        }
+    );
+});
+
+router.post('/auth/logout', (req, res) => {
+    var authStatus = false;
+
+    //logout user by destroying session and removing any DB flags
+    mongodb.logoutUser(
+        {
+            username: req.body.username || req.body.email,
+            sessionID: req.sessionID
+        },
+        (result) => {
+            let success = result;
+
+            if(success) { //Document was updated successfully
+                mongodb.sessionStore.destroy(req.sessionID, (err) => {
+                    if(err) { //could not destroy session in DB
+                        success = false;
+                    } else {
+                        req.session.destroy((err) => {
+                            if(err) { //could not destroy client session
+                                success = false;
+                                req.session.isAuthenticated = false;
+                            }
+            
+                            res.json({
+                                'request': req.body,
+                                'success': success
+                            });
+                        });
+                    }
+                });
+            } else {
+                res.json({
+                    'request': req.body,
+                    'success': success
+                });
+            }
         }
     );
 });

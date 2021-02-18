@@ -5,6 +5,8 @@
  */
 
 const MongoClient = require('mongodb').MongoClient;
+var session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
 const assert = require('assert');
 const readline = require('readline').createInterface({
     input: process.stdin,
@@ -16,7 +18,22 @@ require('dotenv').config();
 
 const dbName = 'Cerbanimo';
 
-const client = new MongoClient(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true });
+//initialize session store
+var sessionStore = new MongoDBStore({
+  uri: process.env.DB_CONNECTION || null,
+  databaseName: dbName,
+  collection: 'UserSession',
+  connectionOptions: { useNewUrlParser: true, useUnifiedTopology: true }
+},
+(err) => {
+  if(err)  console.log(err);
+});
+
+sessionStore.on('error', function(error) {
+  console.log(error);
+});
+
+const client = new MongoClient(process.env.DB_CONNECTION || null, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 //register a user
@@ -34,7 +51,7 @@ const registerUser = (userInfo, callback) => {
     
         const db = client.db(dbName);
 
-        const usersCollection = db.collection('users');
+        const usersCollection = db.collection('User');
 
         usersCollection.insertOne(userToAdd, (err, result) => {
             let callbackResult = result; //default response object to be result
@@ -77,7 +94,7 @@ const authenticateUser = (userInfo, callback) => {
     
         const db = client.db(dbName);
 
-        const usersCollection = db.collection('users');
+        const usersCollection = db.collection('User');
 
         usersCollection.findOne(userToAuth, (err, result) => {
             assert.equal(err, null);
@@ -93,6 +110,70 @@ const authenticateUser = (userInfo, callback) => {
     });
 };
 
+//logout a user
+const logoutUser = (userInfo, callback) => {
+    let userToLogout = {
+        username: userInfo.username || userInfo.email,
+        sessionID: userInfo.sessionID
+    };
+
+    let updates = { $set: {isAuthenticated: false}, $unset: {sessionID: ""} };
+
+    let success = false;
+
+    ensureConnection(function(err) {
+        assert.equal(null, err);
+    
+        const db = client.db(dbName);
+
+        const usersCollection = db.collection('User');
+
+        usersCollection.findOneAndUpdate(userToLogout, updates, (err, result) => {
+            if(err) {
+                console.log(err);
+            } else {
+                success = true;
+            }
+
+            callback(success);
+        });
+    });
+};
+
+//update user auth status
+const updateUserAuthStatus = (userInfo, callback) => {
+    let userToUpdate = {
+        username: userInfo.username || userInfo.email
+    };
+
+    let updates = {};
+    if(userInfo.authStatus) {
+        updates = { $set: {isAuthenticated: true, sessionID: userInfo.sessionID} };
+    } else {
+        updates = { $set: {isAuthenticated: false}, $unset: {sessionID: ""} };
+    }
+
+    ensureConnection(function(err) {
+        assert.equal(null, err);
+    
+        const db = client.db(dbName);
+
+        const usersCollection = db.collection('User');
+
+        usersCollection.updateOne(userToUpdate, updates, (err, result) => {
+            let callbackResult = result; //default response object to be result
+            
+            //check for error and handle
+            if(err) {
+                callbackResult = err;
+            }
+            
+            //return either custom error response or result object
+            callback(callbackResult);
+        });
+    });
+};
+
 //get user
 const getUser = (userInfo, callback) => {
     let user = {
@@ -104,7 +185,7 @@ const getUser = (userInfo, callback) => {
     
         const db = client.db(dbName);
 
-        const usersCollection = db.collection('users');
+        const usersCollection = db.collection('User');
 
         usersCollection.findOne(user, { projection: {hash: 0} }, (err, result) => {
             assert.equal(err, null);
@@ -121,13 +202,13 @@ const getProjectsByCategory = (request, callback) => {
     
         const db = client.db(dbName);
 
-        const projectsCollection = db.collection('projects');
+        const projectsCollection = db.collection('Project');
 
         let projectQuery = {
             categories: { $in: request.categories }
         };
-        
-        let projects = await projectsCollection.find(projectQuery, {limit: request.maxProjectCount}).toArray();
+        let order = { categories: 1 };
+        let projects = await projectsCollection.find(projectQuery, {limit: request.maxProjectCount}).sort(order).toArray();
 
         callback({
             categories: request.categories,
@@ -147,33 +228,34 @@ const getDashboard = (userInfo, callback) => {
             
                 const db = client.db(dbName);
         
-                const projectsCollection = db.collection('projects');
+                const projectsCollection = db.collection('Project');
         
                 getProjectsByCategory(
                     {categories: userResult.categories,
                     maxProjectCount: userInfo.maxProjectCount},
                     (projectResult) => {
-                        if(projectResult.projects) {
+                        if(projectResult.err) {
+                            callback({
+                                'user': userResult || null,
+                                'projects': null,
+                                'success': false,
+                                'err': err
+                            });
+                        } else if(projectResult.projects) {
                             callback({
                                 'user': userResult,
                                 'projects': projectResult.projects,
-                                'success': true
-                            });
-                        } else if(projectResult.err) {
-                            console.log(err);
-                            callback({
-                                'user': userResult,
-                                'projects': null,
-                                'success': false
+                                'success': true,
+                                'err': null
                             });
                         } else {
                             callback({
-                                'user': userResult,
+                                'user': userResult || null,
                                 'projects': null,
-                                'success': true
+                                'success': true,
+                                'err': null
                             });
                         }
-                        
                 });
             });
     });
@@ -200,6 +282,9 @@ const ensureConnection = (callback) => {
 };
 
 exports.mongoClient = client;
+exports.sessionStore = sessionStore;
 exports.registerUser = registerUser;
 exports.authenticateUser = authenticateUser;
+exports.logoutUser = logoutUser;
 exports.getDashboard = getDashboard;
+exports.updateUserAuthStatus = updateUserAuthStatus;
