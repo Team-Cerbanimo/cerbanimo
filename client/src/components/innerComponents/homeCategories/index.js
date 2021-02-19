@@ -9,27 +9,28 @@ const fn = (order, down, originalIndex, curIndex, y) => index =>
     ? { y: curIndex * 100 + y, scale: 1.1, zIndex: '1', shadow: 15, immediate: n => n === 'y' || n === 'zIndex'  }
     : { y: order.indexOf(index) * 100, scale: 1, zIndex: '0', shadow: 1, immediate: false }
     
-    export default function HomeCategory() {
-      let items ='Lorem ipsum dolor sit'.split(' ')
-    const order = useRef(items.map((_, index) => index)) // Store indicies as a local ref, this represents the item order
+    export default function HomeCategory({ items }) {
+    // let items ='Lorem ipsum dolor sit'.split(' ')
+    const order = useRef(items.map((_, index) => index)) 
+    // Store indicies as a local ref, this represents the item order
   
-    const [springs, setSprings] = useSprings(items.length, fn(order.current)) // Create springs, each corresponds to an item, controlling its transform, scale, etc.
+    const [springs, setSprings] = useSprings(items.length, fn(order.current)) 
+    // Create springs, each corresponds to an item, controlling its transform, scale, etc.
  
-    const bind = useGesture(({ args: [originalIndex], down, delta: [, y] }) => {
-      console.log(order.current.indexOf(originalIndex))
+    const bound = useGesture( ({ args: [originalIndex], down, delta: [, y] }) => {
+      console.log("hit")
       const curIndex = order.current.indexOf(originalIndex)
-      console.log(curIndex)
       const curRow = clamp(Math.round((curIndex * 100 + y) / 100), 0, items.length - 1)
       const newOrder = swap(order.current, curIndex, curRow)
-      setSprings(fn(newOrder, down, originalIndex, curIndex, y)) // Feed springs new style data, they'll animate the view without causing a single render
-      if (!down) order.current = newOrder 
+      setSprings(fn(newOrder, down, originalIndex, curIndex, y)) 
+      // Feed springs new style data, they'll animate the view without causing a single render
+      if (!down) order.current = newOrder
     })
-    
     return (
       <div className="content" style={{ height: items.length * 100 }}>
         {springs.map(({ zIndex, shadow, y, scale }, i) => (
           <animated.div
-            {...bind(i)}
+            {...bound(i)}
             key={i}
             style={{
               zIndex,
@@ -39,6 +40,6 @@ const fn = (order, down, originalIndex, curIndex, y) => index =>
             children={items[i]}
           />
         ))}
-      </div>
+       </div>
     )
   }
