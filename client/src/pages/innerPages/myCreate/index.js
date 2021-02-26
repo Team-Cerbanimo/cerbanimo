@@ -17,7 +17,7 @@ export default function MyCreate() {
         skills: skills,
         parent: ""
     })
-
+    //display name
     //removes a tag or skill from the appropriate State
     function set(arrType, cut) {
         if (arrType === tags) {
