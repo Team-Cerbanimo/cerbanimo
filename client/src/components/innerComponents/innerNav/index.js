@@ -25,6 +25,9 @@ export default function InnerNav() {
           <LinkContainer to="/task-market">
             <Nav.Link>Task-Market</Nav.Link>
           </LinkContainer>
+          <LinkContainer to="/project">
+            <Nav.Link>TEMP Project </Nav.Link>
+          </LinkContainer>
 
           <NavDropdown title="Profile" className="toggleDrop">
             <LinkContainer to="/profile">
