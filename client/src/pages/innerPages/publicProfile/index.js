@@ -104,7 +104,7 @@ const [stateRows, setRows] = useState([communities])
 useEffect(()=>{
     console.log(communities.length);
     let rows = [];
-    for (let i = 0; i > communities.length; i += 3) {
+    for (let i = 0; i < communities.length; i += 3) {
         console.log(i)
         rows.push(
             <Carousel.Item>
