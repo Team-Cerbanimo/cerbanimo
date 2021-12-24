@@ -58,11 +58,10 @@ export default function PublicProfile() {
             <li><a href={link.url}>{link.name}</a></li>
         )
     })
-   
+
     let communities = props.communities.map(community => {
         return (
-            <Carousel.Item>
-                <Row>
+           
                     <Col>
                         <CommunityCard
                             name={community.name}
@@ -71,27 +70,28 @@ export default function PublicProfile() {
                         />
                         <h4>{community.interest}</h4>
                     </Col>
-                    <Col>
-                        <CommunityCard
-                            name={community.name}
-                            description={community.description}
-                            page="public"
-                        />
-                        <h4>{community.interest}</h4>
-                    </Col>
-                    <Col>
-                        <CommunityCard
-                            name={community.name}
-                            description={community.description}
-                            page="public"
-                        />
-                        <h4>{community.interest}</h4>
-                    </Col>
-                </Row>
-            </Carousel.Item>
 
         )
     })
+    console.log(communities)
+    const mapRows = () => {
+        let numRow = Math.floor(communities.length / 3);
+        console.log(numRow)
+        let rows = []
+        for (let i = 0; i < numRow; i+3) {
+            rows.push(
+                <Carousel.Item>
+                    <Row>
+                        {communities[i]}
+                        {communities[i+1]}
+                        {communities[i+2]}
+                    </Row>
+                </Carousel.Item>
+            )
+        };
+        console.log(rows)
+        return rows
+    }
 
     return (
         <Container>
@@ -115,14 +115,14 @@ export default function PublicProfile() {
                 <Col></Col>
                 <Col lg={10}>
                     skill component
-                    </Col>
+                </Col>
                 <Col></Col>
             </Row>
             <Row>
                 <Col></Col>
                 <Col lg={10}>
                     <Carousel>
-                        {communities}
+                        {mapRows()}
                     </Carousel>
                 </Col>
                 <Col></Col>
