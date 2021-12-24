@@ -1,2 +1,0 @@
-# cerbanimo
-Community workflow application

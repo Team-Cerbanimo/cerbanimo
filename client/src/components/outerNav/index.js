@@ -6,8 +6,9 @@ import './outerNav.css';
 
 
 
+
 export default function OuterNav() {
-  
+
   return (
     <Navbar id="outsideNav" collapseOnSelect expand="lg" >
       <LinkContainer to="/home">
@@ -24,7 +25,7 @@ export default function OuterNav() {
 
           <LinkContainer to="/login">
             <Nav.Link>Login</Nav.Link>
-          </LinkContainer>
+            </LinkContainer>
 
           <LinkContainer to="/register">
             <Nav.Link>Register</Nav.Link>

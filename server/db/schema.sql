@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS cerban_db;
+
+CREATE DATABASE cerban_db;

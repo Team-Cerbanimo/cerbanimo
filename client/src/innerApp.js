@@ -7,9 +7,6 @@ import MyPersonal from './pages/innerPages/myPersonal';
 import TaskMarket from './pages/innerPages/taskMarket';
 import InnerNav from './components/innerComponents/innerNav';
 import PublicProfile from './pages/innerPages/publicProfile';
-import SurfaceApp from './surfaceApp';
-import { render } from 'react-dom';
-
 
 function InnerApp() {
     return (
@@ -50,16 +47,6 @@ function InnerApp() {
                  {/* <Route path="/:username" render={() => {
                     return (
                         <PublicProfile/>
-                    )
-                }} /> */}
-                {/* <Route path="/log-out" render={() => {
-                    return (
-                        ReactDOM.render(
-                            <React.StrictMode>
-                              <SurfaceApp />
-                            </React.StrictMode>,
-                            document.getElementById('root')
-                          )
                     )
                 }} /> */}
             </div>

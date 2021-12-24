@@ -1,0 +1,28 @@
+{
+    "name": "cerbanimo",
+    "version": "0.1.0",
+    "private": true,
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "watch": "nodemon server.js"
+    },
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "concurrently": "^6.5.1",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-session": "^1.17.2",
+        "if-env": "^1.0.4",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.3.3-rc.0",
+        "passport": "^0.5.2",
+        "passport-local": "^1.0.0",
+        "sequelize": "^6.9.0",
+        "session": "^0.1.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.4"
+    }
+}
