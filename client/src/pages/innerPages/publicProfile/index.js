@@ -1,9 +1,9 @@
-import React from 'react';
+import { useState, useEffect, React } from 'react';
 import { Col, Row, Container, Carousel } from 'react-bootstrap';
 import CommunityCard from '../../../components/innerComponents/communityCard'
 
 export default function PublicProfile() {
-    let props = {
+    const props = {
         name: "AndyDragon",
         description: "Minim ea et est adipisicing officia qui cupidatat deserunt commodo. Magna mollit officia est duis et commodo amet enim nostrud voluptate dolor ut dolore nisi. Ut veniam sit ipsum elit id. Fugiat mollit ipsum occaecat magna anim reprehenderit magna ut eu consequat Lorem sunt nisi. Sint quis quis et amet eiusmod tempor anim.",
         img: "https://avatars2.githubusercontent.com/u/64037800?s=400&u=53ec1db932c81fd5b8b01fe87dfa7f3fa53161d4&v=4",
@@ -49,7 +49,36 @@ export default function PublicProfile() {
                 name: "bright",
                 description: "lorMollit est sint id sit esse duis.",
                 interest: "7.5%"
+            }, {
+                name: "timerook",
+                description: "lorMollit est sint id sit esse duis.",
+                interest: "7.5%"
             },
+            {
+                name: "stellar",
+                description: "lorMollit est sint id sit esse duis.",
+                interest: "7.5%"
+            },
+            {
+                name: "frustrate",
+                description: "lorMollit est sint id sit esse duis.",
+                interest: "7.5%"
+            },
+            {
+                name: "brown",
+                description: "lorMollit est sint id sit esse duis.",
+                interest: "7.5%"
+            },
+            {
+                name: "plague",
+                description: "lorMollit est sint id sit esse duis.",
+                interest: "7.5%"
+            },
+            {
+                name: "passion",
+                description: "lorMollit est sint id sit esse duis.",
+                interest: "7.5%"
+            }
 
         ]
     }
@@ -58,40 +87,38 @@ export default function PublicProfile() {
             <li><a href={link.url}>{link.name}</a></li>
         )
     })
-
     let communities = props.communities.map(community => {
         return (
-           
-                    <Col>
-                        <CommunityCard
-                            name={community.name}
-                            description={community.description}
-                            page="public"
-                        />
-                        <h4>{community.interest}</h4>
-                    </Col>
+            <Col>
+                <CommunityCard
+                    name={community.name}
+                    description={community.description}
+                    page="public"
+                />
+                <h4>{community.interest}</h4>
+            </Col>
 
         )
-    })
-    console.log(communities)
-    const mapRows = () => {
-        let numRow = Math.floor(communities.length / 3);
-        console.log(numRow)
-        let rows = []
-        for (let i = 0; i < numRow; i+3) {
-            rows.push(
-                <Carousel.Item>
-                    <Row>
-                        {communities[i]}
-                        {communities[i+1]}
-                        {communities[i+2]}
-                    </Row>
-                </Carousel.Item>
-            )
-        };
-        console.log(rows)
-        return rows
-    }
+    });
+const [stateRows, setRows] = useState([communities])
+useEffect(()=>{
+    console.log(communities.length);
+    let rows = [];
+    for (let i = 0; i > communities.length; i += 3) {
+        console.log(i)
+        rows.push(
+            <Carousel.Item>
+                <Row>
+                    {communities[i]}
+                    {communities[i + 1]}
+                    {communities[i + 2]}
+                </Row>
+            </Carousel.Item>
+        )
+    };
+    setRows(rows)
+    console.log(stateRows);
+}, [])
 
     return (
         <Container>
@@ -122,7 +149,7 @@ export default function PublicProfile() {
                 <Col></Col>
                 <Col lg={10}>
                     <Carousel>
-                        {mapRows()}
+                        {stateRows}
                     </Carousel>
                 </Col>
                 <Col></Col>

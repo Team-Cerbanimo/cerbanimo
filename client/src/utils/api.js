@@ -11,14 +11,14 @@ class API {
             if (err) throw err
         }
     }
-    async checkAuth() {
-        try {
-            const auth = await axios.get('/api/auth/check');
-            return auth.auth
-        } catch (err) {
-            if (err) throw err
-        }
-    }
+    // async checkAuth() {
+    //     try {
+    //         const auth = await axios.get('/api/auth/check');
+    //         return auth.auth
+    //     } catch (err) {
+    //         if (err) throw err
+    //     }
+    // }
     async logIn(cred, state) {
         try {
             const logIn = await axios.post('/api/auth/login', cred)

@@ -7,7 +7,7 @@ import api from './api';
 const {
     signUp,
     logIn,
-    checkAuth } = api;
+    } = api;
 const initialState = {
     auth: true
 }
