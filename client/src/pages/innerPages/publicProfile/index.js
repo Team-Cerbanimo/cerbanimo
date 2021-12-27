@@ -132,11 +132,11 @@ useEffect(()=>{
         <Container id="public-profile">
             <Row id="info-row" className="outer-rows">
           
-                <Col>
+                <Col className="top-row-col">
                     <Row id="img-row"><img src={props.img} alt="profile picture"></img></Row>
                     <Row><ul>{links}</ul></Row>
                 </Col>
-                <Col >
+                <Col className="top-row-col">
                     <Row><h2>{props.name}</h2></Row>
                     <Row id="skill-box" > {skills}</Row>
                 </Col>
@@ -149,9 +149,7 @@ useEffect(()=>{
             </Row>
             <Row className="outer-rows">
           
-                <Col id="skill-box" lg={10}>
-                  
-                </Col>
+                <Col id="skill-box" lg={10}></Col>
             
             </Row>
             <Row className="outer-rows">

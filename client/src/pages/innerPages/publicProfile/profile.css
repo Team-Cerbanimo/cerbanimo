@@ -4,9 +4,34 @@
     display: flex;
     justify-content: center;
 }
-
+.top-row-col{
+    width: 40% !important;
+    flex-basis: unset !important;
+    flex-grow: unset !important;
+}
 #public-profile img{
+    border: 10px dashed rgba(61, 26, 93);
     border-radius: 60px;
+    background-color: rgba(61, 26, 93, 0.356);
+}
+#public-profile ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
+    margin-top: 10px !important;
+}
+#public-profile ul a{
+    color: rgba(61, 26, 93);
+    font-weight: 500;
+    text-decoration: underline;
+    margin: 20px;
+    padding: 5px;
+    border-radius: 5px;
+}
+#public-profile ul a:hover{
+    background-color: rgba(61, 26, 93, 0.356);
 }
 #skill-box{
     display: flex;
