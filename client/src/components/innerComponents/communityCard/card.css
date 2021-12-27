@@ -1,0 +1,22 @@
+.card-head{
+    background-color: rgb(61, 26, 93) !important;
+    color: white !important;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+}
+.card-body{
+ border: 2px solid rgb(61, 26, 93) !important;
+ border-bottom-left-radius:5px;
+ border-bottom-right-radius: 5px;
+} 
+.card-title{
+    font-size: 32px !important;
+    font-weight: 600 !important;
+    margin: 0px !important;
+}
+.card-head p{
+    font-size: 26px !important;
+}

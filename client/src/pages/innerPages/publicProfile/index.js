@@ -1,7 +1,7 @@
 import { useState, useEffect, React } from 'react';
 import { Col, Row, Container, Carousel } from 'react-bootstrap';
 import CommunityCard from '../../../components/innerComponents/communityCard'
-
+import './profile.css';
 export default function PublicProfile() {
     const props = {
         name: "AndyDragon",
@@ -94,12 +94,20 @@ export default function PublicProfile() {
                     name={community.name}
                     description={community.description}
                     page="public"
+                    interest={community.interest}
                 />
-                <h4>{community.interest}</h4>
             </Col>
 
         )
     });
+    let skills = props.skills.map(skill =>{
+        return (
+            <div className='flex-skill'>
+                <p>{skill.name}</p>
+                <p>{skill.currentLevel}</p>
+            </div>
+        )
+    })
 const [stateRows, setRows] = useState([communities])
 useEffect(()=>{
     console.log(communities.length);
@@ -121,38 +129,39 @@ useEffect(()=>{
 }, [])
 
     return (
-        <Container>
-            <Row>
+        <Container id="public-profile">
+            <Row id="info-row" className="outer-rows">
+          
                 <Col>
-                    <Row><img src={props.img} alt="profile picture"></img></Row>
+                    <Row id="img-row"><img src={props.img} alt="profile picture"></img></Row>
                     <Row><ul>{links}</ul></Row>
                 </Col>
-                <Col>
+                <Col >
                     <Row><h2>{props.name}</h2></Row>
-                    <Row>{props.skills[0].name}   {props.skills[0].currentLevel}</Row>
-                    <Row>{props.skills[1].name}   {props.skills[1].currentLevel}</Row>
+                    <Row id="skill-box" > {skills}</Row>
                 </Col>
+               
             </Row>
-            <Row>
-                <Col></Col>
+            <Row className="outer-rows">
+        
                 <Col lg={10}>{props.description}</Col>
-                <Col></Col>
+
             </Row>
-            <Row>
-                <Col></Col>
-                <Col lg={10}>
-                    skill component
+            <Row className="outer-rows">
+          
+                <Col id="skill-box" lg={10}>
+                  
                 </Col>
-                <Col></Col>
+            
             </Row>
-            <Row>
-                <Col></Col>
+            <Row className="outer-rows">
+                
                 <Col lg={10}>
                     <Carousel>
                         {stateRows}
                     </Carousel>
                 </Col>
-                <Col></Col>
+
             </Row>
         </Container>
     )

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
+
 export default function ProjectCard(props) {
     return (
         <Card style={{ width: '24rem' }}>
-            <Card.Header>
+            <Card.Header className="card-head">
                 <Card.Title>{props.name}</Card.Title>
                 <Card.Subtitle>Community:{props.community}</Card.Subtitle>
             </Card.Header>

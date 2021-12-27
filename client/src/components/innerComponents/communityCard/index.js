@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Carousel } from 'react-bootstrap';
 import ProjectCard from '../projectCard';
-
+import './card.css';
 export default function CommunityCard(props) {
     console.log(props)
     //TODO make API call using props.name to GET projects from that community
@@ -37,15 +37,16 @@ export default function CommunityCard(props) {
 
     return (
         <Card>
-            <Card.Header>
-                <Card.Img src={props.img} />
-                <Card.Title>{props.name}</Card.Title>
+            <Card.Header className="card-head">
+                {/* <Card.Img src={props.img} /> */}
+                <Card.Title className="card-title">{props.name}</Card.Title>
+                <Card.Text>{props.interest}</Card.Text>
             </Card.Header>
 
             <Card.Body>
-                <Carousel id="communityProjects">
+                {/* <Carousel id="communityProjects">
                     {communityProjects}
-                </Carousel>
+                </Carousel> */}
                 {/* TODO add max characters for visible */}
                 <Card.Text>{props.description}</Card.Text>
                 {/* TODO make this a toggle for all text visible */}
