@@ -19,19 +19,16 @@ class API {
     //         if (err) throw err
     //     }
     // }
-    async logIn(cred, state) {
-        try {
-            const logIn = await axios.post('/api/auth/login', cred)
-            if (logIn.status === 200) {
-                return true
-            } else {
-                return false
-            }
-        } catch (err) {
-            if (err) throw err;
-            return false
-        }
-    }
+    // logIn(cred) {
+    //     try {
+    //         const logIn = await axios.post('/api/auth/login', cred);
+    //         console.log(logIn)
+    //         dispatch({ type: LOGIN, logIn });
+    //     } catch (err) {
+    //         if (err) throw err;
+    //         return false
+    //     }
+    // }
     logOut() {
 
     }

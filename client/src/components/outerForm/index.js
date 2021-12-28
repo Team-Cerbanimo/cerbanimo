@@ -4,6 +4,8 @@ import './outerForm.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGIN, SIGN_UP } from '../../utils/actions';
 
+import axios from 'axios';
+
 export default function OuterFrom(props) {
     const dispatch = useDispatch();
   const state = useSelector(state => state);
@@ -15,7 +17,10 @@ export default function OuterFrom(props) {
         password: document.getElementById("password").value.trim()
       }
     if(e.target.innerText==="Submit"){
-        dispatch({type: LOGIN, creds}); 
+        axios.post('/api/auth/login', creds).then(res =>{
+            console.log(res)
+            dispatch({ type: LOGIN, res });
+        })
         console.log(state)
     }else{
         dispatch({type: SIGN_UP, creds}); 
